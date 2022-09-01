@@ -1,0 +1,95 @@
+<!--<div class="container page-content">-->
+<!--  <div class="row">-->
+<!--    <aside class="col-lg-9">-->
+<!--      <div class="card">-->
+<!--        <table class="table table-borderless table-shopping-cart">-->
+<!--          <thead class="text-muted">-->
+<!--          <tr class="small text-uppercase">-->
+<!--            <th scope="col">Prodotto</th>-->
+<!--            <th scope="col" width="120">Quantità</th>-->
+<!--            <th scope="col" width="120">Prezzo</th>-->
+<!--            <th scope="col" class="text-right" width="200"> </th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr *ngFor="let item of products">-->
+<!--            <td>-->
+<!--              <figure class="itemside align-items-center">-->
+<!--                <div class="aside"><a href="/article/{{item.id}}"><img class="img-sm" src="{{item.picture}}" alt="{{item.title}}"></a></div>-->
+<!--                <figcaption class="info">-->
+<!--                  <a href="/article/{{item.id}}" class="h5 font-weight-bold d-inline-block">{{item.title}}</a>-->
+<!--                  <div><small>Taglia: {{getItemSize(item.id)}}</small></div>-->
+<!--                </figcaption>-->
+<!--              </figure>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--              <select class="form-control">-->
+<!--                <option>{{getItemQty(item.id)}}</option>-->
+<!--                <option>1</option>-->
+<!--                <option>2</option>-->
+<!--                <option>3</option>-->
+<!--                <option>4</option>-->
+<!--              </select>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--              <div class="price-wrap">-->
+<!--                <span class="price">{{item.price * getItemQty(item.id)}} €</span><br>-->
+<!--                <small>{{item.price}} € x 1</small>-->
+<!--              </div>-->
+<!--            </td>-->
+<!--            <td class="text-right">-->
+<!--              <a class="btn btn-light" (click)="removeItem(item.id)"> Rimuovi</a>-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--        <div class="text-center mt-3">-->
+<!--          <div *ngIf="cart?.products.length <= 0"><h5>Il carrello è vuoto.</h5></div>-->
+<!--        </div>-->
+<!--        <div class="card-body border-top">-->
+<!--          <span class="icontext"><i data-feather="truck" width="20" height="20" class="filled"></i> Consegna gratuita in 3-5 giorni.</span>-->
+<!--        </div> &lt;!&ndash; card-body.// &ndash;&gt;-->
+
+<!--      </div> &lt;!&ndash; card.// &ndash;&gt;-->
+
+<!--    </aside> &lt;!&ndash; col.// &ndash;&gt;-->
+<!--    <aside class="col-lg-3">-->
+
+<!--      <div class="card mb-3">-->
+<!--        <div class="card-body">-->
+<!--          <form>-->
+<!--            <div class="form-group">-->
+<!--              <label>Hai un codice sconto?</label>-->
+<!--              <div class="input-group">-->
+<!--                <input type="text" class="form-control" name="" placeholder="Codice sconto">-->
+<!--                <span class="input-group-append">-->
+<!--                  <button class="btn btn-primary">Applica</button>-->
+<!--              </span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </form>-->
+<!--        </div> &lt;!&ndash; card-body.// &ndash;&gt;-->
+<!--      </div> &lt;!&ndash; card.// &ndash;&gt;-->
+
+<!--      <div class="card">-->
+<!--        <div class="card-body">-->
+<!--          <div class="d-flex justify-content-between">-->
+<!--            <span>Totale:</span>-->
+<!--            <span class="font-weight-bold">{{cart?.grandTotal}} €</span>-->
+<!--          </div>-->
+<!--          <hr>-->
+<!--          <a href="/checkout"><button [disabled]="cart?.products.length <= 0" type="button" class="btn btn-primary btn-block">Procedi con l'ordine </button></a>-->
+<!--          <br>-->
+<!--          <a href="/store" class="btn btn-light btn-block">Continua con lo shopping</a>-->
+<!--        </div> &lt;!&ndash; card-body.// &ndash;&gt;-->
+<!--      </div> &lt;!&ndash; card.// &ndash;&gt;-->
+
+<!--    </aside> &lt;!&ndash; col.// &ndash;&gt;-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<style>-->
+<!--  .filled {-->
+<!--    color: #28a745!important;-->
+<!--  }-->
+<!--</style>-->

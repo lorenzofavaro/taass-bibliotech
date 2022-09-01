@@ -1,0 +1,28 @@
+<body class="d-flex flex-column">
+
+<div class="container page-content">
+  <div class="card">
+    <div class="card-body">
+      <div class="text-center py-3">
+        <i data-feather="check-circle" class="text-success" width="48" height="48"></i>
+        <h1>Grazie per il tuo ordine!</h1>
+        <p>Siamo felici che tu abbia trovato qualcosa di tuo gradimento!</p>
+        <p>Non appena il tuo pacchetto viene spedito, riceverai un e-mail di conferma spedizione da parte nostra.</p>
+        <p class="mb-0">
+          <span class="text-muted">Numero ordine: </span>
+          <span class="text-info">#ORD-{{orderId.substr(20)}}</span>
+        </p>
+        <p>Consegna prevista il <strong>{{shippingDate | date: 'dd MMM yyyy'}}</strong></p>
+        <div class="mt-2">
+          <a routerLink="/store" class="btn btn-info rounded mb-3 btn-space">CONTINUA CON LO SHOPPING</a>
+          <a routerLink="/order/{{orderId}}" class="btn btn-primary rounded mb-3">VEDI IL TUO ORDINE</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>.btn-space
+{
+  margin-right:0.5rem;
+}</style>

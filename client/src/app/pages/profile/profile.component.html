@@ -1,0 +1,80 @@
+<div class="container page-content">
+  <div class="row">
+    <div class="col-md-4 col-lg-3">
+      <div class="card">
+        <div class="card-body text-center">
+          <img src="assets/images/user.png" width="100" height="100" alt="UserAuth" class="rounded-circle mb-3">
+          <h5 class="bold mb-0">Ciao {{user?.firstName}}!</h5>
+          <small class="text-secondary">Ultimo accesso {{currentDate | date:'dd MMM, yyyy'}}
+          </small>
+        </div>
+        <div class="list-group list-group-flush">
+          <a routerLink="/profile" class="list-group-item list-group-item-action active"><i data-feather="user" class="mr-3"></i> Profilo</a>
+          <a routerLink="/orders" class="list-group-item list-group-item-action"><i data-feather="book" class="mr-3"></i> Libri prenotati</a>
+          <a routerLink="/address" class="list-group-item list-group-item-action"><i data-feather="calendar" class="mr-3"></i> Aule prenotate</a>
+          <a (click)="logout()" class="list-group-item list-group-item-action text-danger"><i data-feather="log-out" class="mr-3"></i> Esci</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col mt-3 mt-md-0">
+      <div *ngIf="successMsg" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Profilo aggiornato!</strong>
+        <button (click)="closeMsg()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="passwordMsg" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Le due password non coincidono.</strong>
+        <button (click)="closeMsg()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="errorMsg" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Compila tutti i campi.</strong>
+        <button (click)="closeMsg()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h3>Il mio profilo</h3><hr>
+          <form id="profileForm" [formGroup]="userFormGroup" (ngSubmit)="updateUser()">
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label for="firstName">Nome</label>
+                <input type="text" class="form-control" formControlName="firstName" value="{{user?.firstName}}"
+                       id="firstName" name="firstName">
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="lastName">Cognome</label>
+                <input type="text" class="form-control" formControlName="lastName" value="{{user?.lastName}}"
+                       id="lastName" name="lastName">
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="email">Indirizzo email</label>
+                <input required="required" type="text" class="form-control" formControlName="email" value="{{user?.email}}"
+                       id="email" name="email">
+                <div class="invalid-feedback">Email già in uso.</div>
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="txtNewPassword">Nuova password</label>
+                <input type="password" class="form-control" formControlName="password"
+                       id="txtNewPassword" name="newPassword" autocomplete="new-password">
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="txtConfirmPassword">Conferma password</label>
+                <input type="password" class="form-control" formControlName="passwordConfirm" id="txtConfirmPassword" >
+                <div class="invalid-feedback">Le password non coincidono.</div>
+              </div>
+              <div class="form-group col-12">
+                <button id="updateUserInfoButton" type="submit" class="btn btn-primary">AGGIORNA PROFILO</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

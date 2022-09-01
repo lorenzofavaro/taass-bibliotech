@@ -1,0 +1,67 @@
+spring:
+  application:
+    name: api-gateway
+
+server:
+  port: 8080
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+
+ribbon:
+  eureka:
+    enabled: false
+  ReadTimeout: 60000
+  ConnectTimeout: 20000
+
+
+zuul:
+  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+  host:
+    socket-timeout-millis: 30000
+    connect-timeout-millis: 30000
+    connection-request-timeout-millis: 30000
+  routes:
+    auth:
+      path: /auth-service/**
+      serviceId: auth-service
+      sensitive-headers: Cookie,Set-Cookie
+    catalog:
+      path: /catalog-service/**
+      serviceId: catalog-service
+      sensitive-headers: Cookie,Set-Cookie
+    user:
+      path: /user-service/**
+      serviceId: user-service
+      sensitive-headers: Cookie,Set-Cookie
+    studyhalls:
+      path: /studyhalls-service/**
+      serviceId: studyhall-service
+      sensitive-headers: Cookie,Set-Cookie
+    booking:
+      path: /booking-service/**
+      serviceId: booking-service
+      sensitive-headers: Cookie,Set-Cookie
+
+auth-service:
+  ribbon:
+    listOfServers: auth-service:9100
+
+catalog-service:
+  ribbon:
+    listOfServers: catalog-service:9200
+
+user-service:
+  ribbon:
+    listOfServers: user-service:9300
+
+studyhall-service:
+  ribbon:
+    listOfServers: studyhall-service:9400
+
+booking-service:
+  ribbon:
+    listOfServers: book-service:9500

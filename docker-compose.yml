@@ -1,0 +1,155 @@
+version: "3.8"
+services:
+  dbpostgresql:
+    image: 'postgres:13.1-alpine'
+    container_name: dbpostgresql
+    user: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=users
+    expose:
+      - 5432
+    volumes:
+      - ./postgres-data-new:/var/lib/posgresql/data
+      - ./create_dbs.sh:/docker-entrypoint-initdb.d/create_dbs.sh
+
+  rabbitmq-broker:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+
+  eureka-server:
+    container_name: eureka-server
+    image: lorenzofavaro/bibliotech:eureka-server
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka/
+    ports:
+      - "8761:8761"
+
+
+  api-gateway:
+    container_name: api-gateway
+    image: lorenzofavaro/bibliotech:api-gateway
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-server
+      - dbpostgresql
+    links:
+      - eureka-server
+      - auth-service
+
+
+  auth-service:
+    container_name: auth-service
+    image: lorenzofavaro/bibliotech:auth-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresql:5432/users
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+    ports:
+      - "9100:9100"
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - eureka-server
+    links:
+      - eureka-server
+
+  user-service:
+    container_name: user-service
+    image: lorenzofavaro/bibliotech:user-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresql:5432/users
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+    ports:
+      - "9300:9300"
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - eureka-server
+    links:
+      - eureka-server
+
+
+  book-service:
+    container_name: book-service
+    image: lorenzofavaro/bibliotech:book-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresql:5432/booking_books
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - spring.rabbitmq.host=rabbitmq-broker
+    ports:
+      - "9500:9500"
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - eureka-server
+      - rabbitmq-broker
+    links:
+      - eureka-server
+      - rabbitmq-broker
+
+  catalog-service:
+    container_name: catalog-service
+    image: lorenzofavaro/bibliotech:catalog-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresql:5432/catalog
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - spring.rabbitmq.host=rabbitmq-broker
+    ports:
+      - "9200:9200"
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - eureka-server
+      - rabbitmq-broker
+    links:
+      - eureka-server
+      - rabbitmq-broker
+
+
+  studyhall-service:
+    container_name: studyhall-service
+    image: lorenzofavaro/bibliotech:studyhall-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresql:5432/studyhalls
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+    ports:
+      - "9400:9400"
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - eureka-server
+    links:
+      - eureka-server
+
+  angular-service:
+      container_name: angular-client
+      image: lorenzofavaro/bibliotech:client
+      ports:
+        - "4200:80"

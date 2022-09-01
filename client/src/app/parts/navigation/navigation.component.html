@@ -1,0 +1,43 @@
+<link href="https://fonts.googleapis.com/css?family=Nunito|Roboto|Roboto+Condensed|Roboto+Slab" rel="stylesheet">
+
+<div>
+  <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top shadow-sm px-5">
+    <a class="navbar-brand" href="/"><img width="auto" height="50" src="assets/images/logo.png"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarCollapse" aria-controls="navbarCollapse"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto font-weight-bold">
+        <li class="nav-item">
+          <a class="nav-link" href="/"> Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/store"> Catalogo libri </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/studyhalls"> Aule studio </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto font-weight-bold">
+      <ng-container *ngIf="currentUser; else noUser">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/profile">Il mio profilo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()">Esci</a>
+        </li>
+        <li *ngIf="currentUser.roles === 'ROLE_ADMIN'" class="nav-item">
+          <a class="nav-link text-dark" routerLink="/admin">Pannello Admin</a>
+        </li>
+      </ng-container>
+      <ng-template #noUser>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login">Il mio profilo</a>
+        </li>
+      </ng-template>
+      </ul>
+    </div>
+  </nav>
+</div>

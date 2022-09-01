@@ -1,0 +1,45 @@
+table.dataTable tbody tr.even {
+  background-color: #EEE;
+}
+
+table.dataTable thead th {
+  background-color: rgb(52, 58, 64) !important;
+  border-color: rgb(69, 77, 85);
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid rgb(222, 226, 230);
+}
+
+.table-bordered td, .table-bordered th {
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(222, 226, 230);
+  border-image: initial;
+}
+
+.table td, .table th {
+  vertical-align: top;
+  padding: 0.75rem;
+  border-top: 1px solid rgb(222, 226, 230);
+}
+
+th {
+  text-align: inherit;
+}
+
+.table .thead-dark th {
+  color: rgb(255, 255, 255);
+  background-color: rgb(52, 58, 64);
+  border-color: rgb(69, 77, 85);
+}
+
+table.dataTable {
+  clear: both;
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
+  max-width: none !important;
+  border-collapse: separate !important;
+  border-spacing: 0px;
+}

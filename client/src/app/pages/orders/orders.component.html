@@ -1,0 +1,51 @@
+<div class="container page-content">
+  <div class="row">
+    <div class="col-md-4 col-lg-3">
+      <div class="card">
+        <div class="card-body text-center">
+          <img src="assets/images/user.png" width="100" height="100" alt="UserAuth" class="rounded-circle mb-3">
+          <h5 class="bold mb-0">Ciao {{user?.firstName}}!</h5>
+          <small class="text-secondary">Ultimo accesso {{currentDate | date:'dd MMM, yyyy'}}
+          </small>
+        </div>
+        <div class="list-group list-group-flush">
+          <a routerLink="/profile" class="list-group-item list-group-item-action"><i data-feather="user" class="mr-3"></i> Profilo</a>
+          <a routerLink="/orders" class="list-group-item list-group-item-action active"><i data-feather="book" class="mr-3"></i> Libri prenotati</a>
+          <a routerLink="/address" class="list-group-item list-group-item-action"><i data-feather="calendar" class="mr-3"></i> Aule prenotate</a>
+          <a (click)="logout()" class="list-group-item list-group-item-action text-danger"><i data-feather="log-out" class="mr-3"></i> Esci</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col mt-3 mt-md-0">
+      <div class="card">
+        <div class="card-body">
+          <h3>I miei libri prenotati</h3><hr>
+          <div class="table-responsive">
+            <table class="table table-hover" data-addclass-on-xs="table-sm">
+              <thead class="thead-light">
+              <tr>
+                <th scope="col">Numero prenotazione</th>
+                <th scope="col">Data</th>
+                <th scope="col" class="text-center">Stato</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let order of sortData">
+                <th scope="row" ><a routerLink="/order/{{order.id}}" class="text-primary">PRN-{{order.id.substr(20)}}</a></th>
+                <td>{{order.date | date: 'dd MMM yyyy'}}</td>
+                <td class="text-center" [ngSwitch]="order?.orderStatus">
+                  <span *ngSwitchCase="'ORDER_CREATED'" class="badge badge-primary rounded">CREATO</span>
+                  <span *ngSwitchCase="'ORDER_COMPLETED'" class="badge badge-success rounded">CONFERMATO</span>
+                  <span *ngSwitchCase="'ORDER_CANCELLED'" class="badge badge-danger rounded">CANCELLATO</span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

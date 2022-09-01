@@ -1,0 +1,100 @@
+<link href="https://fonts.googleapis.com/css?family=Nunito|Roboto|Roboto+Condensed|Roboto+Slab" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
+<div class="d-flex flex-column">
+<div class="container my-3 my-sm-5 page-content">
+  <div class="row justify-content-center" id="row-login">
+    <div class="col-sm-10 col-md-11 col-lg-9 col-xl-8">
+      <div class="card card-login">
+        <div class="card-body">
+          <div *ngIf="signupSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>La registrazione è avvenuta con successo. Effettua il login per continuare.</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-login">
+              <form [formGroup]="formGroup" (ngSubmit)="login()">
+                <div class="form-group text-center mb-2">
+                  <h2 class="mb-0">Accedi</h2>
+                  <em>al tuo account</em>
+                </div>
+                <div class="form-group">
+                  <div class="input-icon">
+                    <i data-feather="user"></i>
+                    <input required="required" type="text" class="form-control" placeholder="Username o email" name="username" formControlName="email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-icon">
+                    <i data-feather="lock"></i>
+                    <input required="required" type="password" class="form-control" placeholder="Password" name="password" formControlName="password">
+                    <div class="invalid-feedback">Ops, qualcosa è andato storto! (Verifica email e password e riprova).</div>
+                  </div>
+                </div>
+                <div class="form-group d-flex justify-content-between">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox"
+                           class="custom-control-input" id="loginRemember" name="remember-me">
+                    <label class="custom-control-label"
+                           for="loginRemember">Ricordami</label>
+                  </div>
+                  <a href="#" class="text-primary small reset">Hai dimenticato la password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">ACCEDI</button>
+                <button type="button" (click)="loginWithGoogle()" class="btn btn-google btn-block mb-4"> <i data-feather="user"></i> &nbsp;  Accedi con Google</button>
+              </form>
+            </div>
+
+            <span class="or-divider">o</span>
+
+            <div class="col-md-6 col-register">
+              <form [formGroup]="signupForm" (ngSubmit)="signup()">
+                <div class="form-group text-center">
+                  <h2 class="bold">Registrati</h2>
+                </div>
+                <div class="form-group">
+                  <div class="input-icon">
+                    <i data-feather="mail"></i>
+                    <input required="required" type="email" class="form-control"
+                           name="email" placeholder="Indirizzo email" formControlName="email">
+                    <div class="invalid-feedback">Sembra che l’indirizzo email corrisponda a un account già esistente.</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-icon">
+                    <i data-feather="user"></i>
+                    <input required="required" type="text" class="form-control"
+                           placeholder="Nome" name="firstName" formControlName="firstName">
+                    <div class="invalid-feedback">Sembra che l’username corrisponda a un account già esistente.</div>
+
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-icon">
+                    <i data-feather="user"></i>
+                    <input required="required" type="text" class="form-control"
+                           placeholder="Cognome" name="lastName" formControlName="lastName">
+                    <div class="invalid-feedback">Sembra che l’username corrisponda a un account già esistente.</div>
+
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-icon">
+                    <i data-feather="lock"></i> <input type="password" required="required"
+                                                       class="form-control" name="new-password"
+                                                       placeholder="Password" autocomplete="new-password" formControlName="password">
+                  </div>
+                </div>
+                <button type="submit"
+                        class="btn btn-outline-primary btn-block">REGISTRATI</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
