@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: studyhall-service
+  labels:
+    app: studyhall-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: studyhall-service
+  template:
+    metadata:
+      labels:
+        app: studyhall-service
+    spec:
+      containers:
+        - name: studyhall-service
+          image: lorenzofavaro/bibliotechk8:studyhall-service
+          env:
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: admin
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://dbpostgresql:5432/studyhalls
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+            - name: eureka.client.serviceUrl.defaultZone
+              value: http://eureka-server:8761/eureka/
+          ports:
+            - containerPort: 9300
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: studyhall-service
+  namespace: default
+spec:
+  selector:
+    app: studyhall-service
+  ports:
+    - protocol: TCP
+      port: 9300
+  type: LoadBalancer

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-service
+  labels:
+    app: catalog-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catalog-service
+  template:
+    metadata:
+      labels:
+        app: catalog-service
+    spec:
+      containers:
+        - name: catalog-service
+          image: lorenzofavaro/bibliotechk8:catalog-service
+          env:
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: admin
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://dbpostgresql:5432/catalog
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+            - name: eureka.client.serviceUrl.defaultZone
+              value: http://eureka-server:8761/eureka/
+          ports:
+            - containerPort: 9400
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog-service
+  namespace: default
+spec:
+  selector:
+    app: catalog-service
+  ports:
+    - protocol: TCP
+      port: 9400
+  type: LoadBalancer
