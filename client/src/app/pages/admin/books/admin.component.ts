@@ -1,7 +1,7 @@
 /* tslint:disable:no-trailing-whitespace */
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Product} from '../../models/product';
-import {CatalogService} from '../../services/catalog.service';
+import {Product} from '../../../models/product';
+import {CatalogService} from '../../../services/catalog.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Subject} from 'rxjs';
 
@@ -10,7 +10,7 @@ import {Subject} from 'rxjs';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent implements OnInit, OnDestroy {
+export class AdminBooksComponent implements OnInit, OnDestroy {
 
   public products: Product[] = [];
   dtOptions: DataTables.Settings = {};

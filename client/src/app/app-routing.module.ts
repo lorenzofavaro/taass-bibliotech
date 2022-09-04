@@ -13,13 +13,13 @@ import {ArticleComponent} from './pages/article/article.component';
 // import {CheckoutComponent} from './pages/checkout/checkout.component';
 import {OrderSubmittedComponent} from './pages/order-submitted/order-submitted.component';
 import {StoreComponent} from './pages/store/store.component';
-import {AdminComponent} from './pages/admin/admin.component';
-import {EditComponent} from './pages/admin/edit/edit.component';
-import {AddComponent} from './pages/admin/add/add/add.component';
+import {AdminBooksComponent} from './pages/admin/books/admin.component';
+import {AdminBooksEditComponent} from './pages/admin/books/edit/edit.component';
+import {AdminBooksAddComponent} from './pages/admin/books/add/add.component';
 import {StudyhallsComponent} from "./pages/studyhalls/studyhalls.component";
-import {StudyhallsadminComponent} from "./pages/admin/studyhalls/studyhallsadmin.component";
-import {StudyaddComponent} from "./pages/admin/studyhalls/add/studyadd.component";
-import {StudyeditComponent} from "./pages/admin/studyhalls/edit/studyedit.component";
+import {AdminStudyHallsComponent} from "./pages/admin/studyhalls/studyhallsadmin.component";
+import {AdminStudyHallsAddComponent} from "./pages/admin/studyhalls/add/studyadd.component";
+import {AdminStudyHallsEditComponent} from "./pages/admin/studyhalls/edit/studyedit.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -64,33 +64,33 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'admin',
-    component: AdminComponent,
+    path: 'admin/books',
+    component: AdminBooksComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'admin/edit/:id',
-    component: EditComponent,
+    path: 'admin/books/add',
+    component: AdminBooksAddComponent,
     canActivate:  [AuthGuard]
   },
   {
-    path: 'admin/add',
-    component: AddComponent,
+    path: 'admin/books/edit/:id',
+    component: AdminBooksEditComponent,
     canActivate:  [AuthGuard]
   },
   {
     path: 'admin/studyhalls',
-    component: StudyhallsadminComponent,
+    component: AdminStudyHallsComponent,
     canActivate:  [AuthGuard]
   },
   {
     path: 'admin/studyhalls/add',
-    component: StudyaddComponent,
+    component: AdminStudyHallsAddComponent,
     canActivate:  [AuthGuard]
   },
   {
     path: 'admin/studyhalls/edit/:id',
-    component: StudyeditComponent,
+    component: AdminStudyHallsEditComponent,
     canActivate:  [AuthGuard]
   }
 ];

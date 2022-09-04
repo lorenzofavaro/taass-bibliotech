@@ -11,7 +11,7 @@ import {Studyhalls} from "../../../../models/Studyhalls";
   templateUrl: './studyedit.component.html',
   styleUrls: ['./studyedit.component.css']
 })
-export class StudyeditComponent implements OnInit {
+export class AdminStudyHallsEditComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private studyhallsService: StudyhallsService,

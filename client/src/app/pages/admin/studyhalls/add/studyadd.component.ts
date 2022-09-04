@@ -13,7 +13,7 @@ import {Studyhalls} from "../../../../models/Studyhalls";
   templateUrl: './studyadd.component.html',
   styleUrls: ['./studyadd.component.css']
 })
-export class StudyaddComponent {
+export class AdminStudyHallsAddComponent {
 
   constructor(private route: ActivatedRoute,
               private studyhallsService: StudyhallsService,

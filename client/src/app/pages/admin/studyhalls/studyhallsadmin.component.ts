@@ -11,7 +11,7 @@ import {Studyhalls} from "../../../models/Studyhalls";
   styleUrls: ['./studyhallsadmin.component.css']
 })
 
-export class StudyhallsadminComponent implements OnInit, OnDestroy {
+export class AdminStudyHallsComponent implements OnInit, OnDestroy {
 
   public studyhalls: Studyhalls[] = [];
   dtOptions: DataTables.Settings = {};

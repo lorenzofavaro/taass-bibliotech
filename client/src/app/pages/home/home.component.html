@@ -1,18 +1,17 @@
 <div class="jumbotron jumbotron-fluid mt-0 h-auto" style="background-image: url(assets/images/cover.jpg);">
-  <div class="container-fluid">
+  <div class="container-fluid" style="border-radius: 2%">
     <div class="row text-left py-5">
       <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-3 col-xl-6 offset-xl-6 my-auto ml-4">
-        <h2 class="bg-warning text-dark d-inline-block p-2">BiblioTech</h2>
-        <h2 class="bg-dark d-table p-2">Scopri i nostri servizi</h2>
-        <a href="/store" class="btn btn-primary rounded-pill" data-addclass-on-xs="btn-sm">Scopri</a>
+        <h2 class="text-dark d-inline-block p-5"></h2>
+        <h2 class="d-table p-5"></h2>
       </div>
     </div>
   </div>
 </div>
 
 <section class="section py-5 ">
-  <div class="container-fluid text-center">
-    <h2 class="font-weight-bold pb-4">Libri: Ultimi arrivi</h2>
+  <div class="container-fluid text-center book-container">
+    <h2 class="font-weight-bold pb-4">Libri: Gli ultimi arrivi</h2>
     <div class="featured-items row mx-auto justify-content-center">
       <div *ngFor="let product of products" class="mx-1">
         <figure class="card card-product-grid hover-opacity">
@@ -22,6 +21,30 @@
           </figcaption>
         </figure>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section py-5 ">
+  <div class="container-fluid text-center px-5">
+    <h2 class="font-weight-bold pb-4">Aule studio: Le meno frequentate</h2>
+    <div class="row mx-auto justify-content-center">
+      <table class="table table-bordered table-hover">
+        <thead style="background-color: #fa9746">
+        <tr>
+          <th>Nome</th>
+          <th>Indirizzo</th>
+          <th>Posti disponibili</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let studyhall of studyhalls">
+          <td>{{studyhall.name}}</td>
+          <td>{{studyhall.address}}</td>
+          <td>{{studyhall.availability}}</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>

@@ -20,18 +20,18 @@ import { StudyhallsComponent} from "./pages/studyhalls/studyhalls.component";
 // import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { OrderSubmittedComponent } from './pages/order-submitted/order-submitted.component';
 import { StoreComponent } from './pages/store/store.component';
-import { AdminComponent } from './pages/admin/admin.component';
-import { EditComponent } from './pages/admin/edit/edit.component';
+import { AdminBooksComponent } from './pages/admin/books/admin.component';
+import { AdminBooksAddComponent } from './pages/admin/books/add/add.component';
+import { AdminBooksEditComponent } from './pages/admin/books/edit/edit.component';
 import {DataTablesModule} from 'angular-datatables';
 import {TagInputModule} from 'ngx-chips';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { AddComponent } from './pages/admin/add/add/add.component';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login'
 import {IvyCarouselModule} from 'angular-responsive-carousel';
-import {StudyhallsadminComponent} from "./pages/admin/studyhalls/studyhallsadmin.component";
-import {StudyaddComponent} from "./pages/admin/studyhalls/add/studyadd.component";
-import {StudyeditComponent} from "./pages/admin/studyhalls/edit/studyedit.component";
+import {AdminStudyHallsComponent} from "./pages/admin/studyhalls/studyhallsadmin.component";
+import {AdminStudyHallsAddComponent} from "./pages/admin/studyhalls/add/studyadd.component";
+import {AdminStudyHallsEditComponent} from "./pages/admin/studyhalls/edit/studyedit.component";
 
 @NgModule({
   declarations: [
@@ -48,13 +48,13 @@ import {StudyeditComponent} from "./pages/admin/studyhalls/edit/studyedit.compon
     // CheckoutComponent,
     OrderSubmittedComponent,
     StoreComponent,
-    AdminComponent,
-    EditComponent,
-    AddComponent,
+    AdminBooksComponent,
+    AdminBooksEditComponent,
+    AdminBooksAddComponent,
     StudyhallsComponent,
-    StudyhallsadminComponent,
-    StudyaddComponent,
-    StudyeditComponent
+    AdminStudyHallsComponent,
+    AdminStudyHallsAddComponent,
+    AdminStudyHallsEditComponent
   ],
   imports: [
     BrowserModule,

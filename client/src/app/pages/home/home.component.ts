@@ -1,6 +1,8 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {CatalogService} from '../../services/catalog.service';
 import {Product} from '../../models/product';
+import {StudyhallsService} from "../../services/studyhalls.service";
+import {Studyhalls} from "../../models/Studyhalls";
 import {HttpErrorResponse} from '@angular/common/http';
 import * as Feather from 'feather-icons';
 
@@ -12,6 +14,7 @@ import * as Feather from 'feather-icons';
 
 export class HomeComponent implements OnInit, AfterViewInit {
   public products: Product[];
+  public studyhalls: Studyhalls[] = [];
 
   slideConfig = {
     "slidesToShow": 4,
@@ -23,9 +26,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   };
 
   constructor(
-    private catalogService: CatalogService) {}
+    private catalogService: CatalogService,
+    private studyhallsService: StudyhallsService) {}
 
   ngOnInit(): void {
+    this.getStudyHalls();
     this.getFeaturedProducts();
   }
 
@@ -40,6 +45,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }
     );
   }
+
+  public getStudyHalls(): void {
+      this.studyhallsService.getStudyhalls().subscribe(
+        (response: Studyhalls[]) => {
+          this.studyhalls = response;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.message);
+        }
+      );
+    }
 
   ngAfterViewInit(): void {
     Feather.replace();
