@@ -2,6 +2,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import * as Feather from 'feather-icons';
 import {CatalogService} from '../../services/catalog.service';
+import {Router} from '@angular/router';
 import {Product} from '../../models/product';
 import {HttpErrorResponse} from '@angular/common/http';
 import {newArray} from '@angular/compiler/src/util';
@@ -15,7 +16,8 @@ import {StudyhallsService} from "../../services/studyhalls.service";
 })
 export class StudyhallsComponent implements OnInit, AfterViewInit {
 
-  constructor(private studyhallsService: StudyhallsService) { }
+  constructor(private studyhallsService: StudyhallsService,
+              private router: Router,) { }
 
   public studyhalls: Studyhalls[];
   errMsg = false;
@@ -53,6 +55,9 @@ export class StudyhallsComponent implements OnInit, AfterViewInit {
         (error: HttpErrorResponse) => {
           this.succMsg = false;
           this.errMsg = true;
+          if (error.status == 401){ // Unauthorized
+            this.router.navigate(['/login']);
+          }
         }
       )
     }

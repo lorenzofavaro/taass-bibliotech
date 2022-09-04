@@ -1,7 +1,7 @@
 /* tslint:disable:no-trailing-whitespace */
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {CatalogService} from '../../services/catalog.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Product} from '../../models/product';
 import * as Feather from 'feather-icons';
@@ -24,6 +24,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   urlRedirect = '';
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private catalogService: CatalogService,
               private orderService: OrderService) { }
 
@@ -68,6 +69,9 @@ export class ArticleComponent implements OnInit, AfterViewInit {
       (error: HttpErrorResponse) => {
         this.succMsg = false;
         this.errMsg = true;
+        if (error.status == 401){ // Unauthorized
+          this.router.navigate(['/login']);
+        }
       }
     )
     }
