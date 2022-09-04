@@ -27,14 +27,11 @@ public class CatalogServiceImpl implements CatalogService{
         return productRepository.findAllEagerBy();
     }
 
-    private int featuredProductsNumber = 10;
+    private final int featuredProductsNumber = 18;
 
     @Override
     public Page<Product> findArticlesByCriteria(PageRequest pageable, List<String> categories, String search) {
-        Page<Product> page = productRepository.findAll(ProductSpecification.filterBy(categories, search), pageable);
-
-        return page;
-
+        return productRepository.findAll(ProductSpecification.filterBy(categories, search), pageable);
     }
 
     @Override

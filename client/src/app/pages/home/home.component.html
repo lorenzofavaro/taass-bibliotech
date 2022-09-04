@@ -1,9 +1,9 @@
-<div class="jumbotron jumbotron-fluid mt-0" style="background-image: url(assets/images/cover.jpg);">
-  <div class="container">
+<div class="jumbotron jumbotron-fluid mt-0 h-auto" style="background-image: url(assets/images/cover.jpg);">
+  <div class="container-fluid">
     <div class="row text-left py-5">
-      <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-3 col-xl-6 offset-xl-6 my-auto">
-        <h2 class="bg-warning text-dark d-inline-block p-1">BiblioTech</h2>
-        <h2 class="bg-dark d-table">Scopri i nostri servizi</h2>
+      <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-3 col-xl-6 offset-xl-6 my-auto ml-4">
+        <h2 class="bg-warning text-dark d-inline-block p-2">BiblioTech</h2>
+        <h2 class="bg-dark d-table p-2">Scopri i nostri servizi</h2>
         <a href="/store" class="btn btn-primary rounded-pill" data-addclass-on-xs="btn-sm">Scopri</a>
       </div>
     </div>
@@ -11,11 +11,11 @@
 </div>
 
 <section class="section py-5 ">
-  <div class="container text-center">
-    <h2 class="font-weight-bold pb-4">Libri del momento</h2>
-    <div class="featured-items row mx-auto">
-      <div *ngFor="let product of products">
-        <figure class="card card-product-grid">
+  <div class="container-fluid text-center">
+    <h2 class="font-weight-bold pb-4">Libri: Ultimi arrivi</h2>
+    <div class="featured-items row mx-auto justify-content-center">
+      <div *ngFor="let product of products" class="mx-1">
+        <figure class="card card-product-grid hover-opacity">
           <div class="img-wrap"><a href="/article/{{product.id}}"><img src="{{product.picture ? product.picture : '/image/article/itemexample.jpg'}}"></a></div>
           <figcaption class="info-wrap border-top">
             <a href="/article/{{product.id}}" class="title">{{product.title}}</a>
