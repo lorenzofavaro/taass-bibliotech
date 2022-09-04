@@ -41,7 +41,7 @@ public class StudyHallController {
     }
 
     @GetMapping("/studyhalls/create/{id}")
-    public ResponseEntity<BookStudyHall> createBook(@RequestHeader(HEADER_AUTH) String tokenHeader, @PathVariable Long id){
+    public ResponseEntity<BookStudyHall> createBook(@RequestHeader(HEADER_AUTH) String tokenHeader, @PathVariable Long id) {
         Long accountId = RestUtility.getUserId(tokenHeader);
         BookStudyHall bookStudyHall = studyHallService.createBook(id, accountId);
         return ResponseEntity.ok(bookStudyHall);
@@ -50,17 +50,17 @@ public class StudyHallController {
     @PostMapping("/studyhalls/add")
     public HttpEntity<String> addStudyHall(@Valid @RequestBody StudyHallForm studyHallForm) {
         studyHallService.addStudyHall(studyHallForm);
-        return  ResponseEntity.ok("Product added");
+        return ResponseEntity.ok("Product added");
     }
 
     @PostMapping("/studyhalls/edit")
     public HttpEntity<String> editProduct(@Valid @RequestBody StudyHallForm studyHallForm) throws Exception {
         studyHallService.editStudyHall(studyHallForm);
-        return  ResponseEntity.ok("Study hall edited");
+        return ResponseEntity.ok("Study hall edited");
     }
 
     @GetMapping("/studyhalls/bookings")
-    public ResponseEntity<List<BookStudyHall>> getBookings(@RequestHeader(HEADER_AUTH) String tokenHeader){
+    public ResponseEntity<List<BookStudyHall>> getBookings(@RequestHeader(HEADER_AUTH) String tokenHeader) {
         Long userId = RestUtility.getUserId(tokenHeader);
         List<BookStudyHall> bookings = studyHallService.getAllBookings(userId);
         return ResponseEntity.ok(bookings);

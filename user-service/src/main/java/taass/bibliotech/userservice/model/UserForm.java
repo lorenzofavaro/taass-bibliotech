@@ -20,5 +20,7 @@ public class UserForm {
         return email;
     }
 
-    public String getPassword() { return password; }
+    public String getPassword() {
+        return password;
+    }
 }

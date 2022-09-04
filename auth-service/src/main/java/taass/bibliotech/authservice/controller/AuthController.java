@@ -45,7 +45,9 @@ public class AuthController {
     private UserRepository userRepository;
 
     @GetMapping({"/"})
-    public String hello() { return ("<h1>Hello world</h1>"); }
+    public String hello() {
+        return ("<h1>Hello world</h1>");
+    }
 
     @GetMapping({"/user"})
     public String user(@RequestHeader(HEADER_AUTH) String tokenHeader) {
@@ -86,7 +88,7 @@ public class AuthController {
 
         final Optional<User> userOpt = userRepository.findByEmail(authenticationRequest.getEmail());
 
-        if (!userOpt.isPresent()) { //Nuova registrazione.
+        if (userOpt.isEmpty()) { // Nuova registrazione
             userService.googleSignUp(authenticationRequest);
         }
 

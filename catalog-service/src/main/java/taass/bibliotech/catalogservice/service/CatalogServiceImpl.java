@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CatalogServiceImpl implements CatalogService{
+public class CatalogServiceImpl implements CatalogService {
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -26,8 +26,6 @@ public class CatalogServiceImpl implements CatalogService{
     public List<Product> getAllProducts() {
         return productRepository.findAllEagerBy();
     }
-
-    private final int featuredProductsNumber = 18;
 
     @Override
     public Page<Product> findArticlesByCriteria(PageRequest pageable, List<String> categories, String search) {
@@ -52,6 +50,7 @@ public class CatalogServiceImpl implements CatalogService{
 
     @Override
     public List<Product> findFeaturedProducts() {
+        int featuredProductsNumber = 18;
         return productRepository.findAll(PageRequest.of(0, featuredProductsNumber)).getContent();
     }
 }

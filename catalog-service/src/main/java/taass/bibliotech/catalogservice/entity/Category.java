@@ -9,10 +9,10 @@ import javax.persistence.*;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="product_id", nullable = false)
+    @JoinColumn(name = "product_id", nullable = false)
     @JsonBackReference
     private Product product;
     private String name;

@@ -36,8 +36,6 @@ public class OrderServiceImpl implements OrderService {
     @Value("${spring.rabbitmq.template.routing-key}")
     private String routingkey;
 
-//    @Autowired
-//    private OrderStatusPublisher publisher;
 
     @Override
     @Transactional
@@ -66,7 +64,6 @@ public class OrderServiceImpl implements OrderService {
 
 
         rabbitTemplate.convertAndSend(exchange, routingkey, orderEvent);
-//        publisher.raiseOrderEvent(order, OrderStatus.ORDER_CREATED);
         return order;
     }
 
@@ -92,7 +89,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order getOrder(Long userId, UUID orderId) {
         return orderRepository.findByIdAndUserId(orderId, userId).orElseThrow(()
-                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order doesnt exist"));
+                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order doesn't exist"));
     }
 
 }

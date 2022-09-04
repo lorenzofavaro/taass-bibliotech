@@ -10,10 +10,10 @@ import java.util.UUID;
 public class OrderItem {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="order_id", nullable = false)
+    @JoinColumn(name = "order_id", nullable = false)
     @JsonBackReference
     private Order order;
     private Long productId;

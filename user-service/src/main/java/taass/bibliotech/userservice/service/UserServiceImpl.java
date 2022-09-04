@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(Long id) {
         User user = userRepository.findById(id).orElseThrow(()
-        -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User doesnt exist"));
+                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User doesn't exist"));
 
         return user;
     }

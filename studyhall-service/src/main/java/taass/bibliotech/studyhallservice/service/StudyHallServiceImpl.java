@@ -24,13 +24,13 @@ public class StudyHallServiceImpl implements StudyHallService {
 
     @Override
     public List<StudyHall> getAllStudyHalls() {
-         return studyHallRepository.findAllEagerBy();
+        return studyHallRepository.findAllEagerBy();
     }
 
     @Override
     public StudyHall getStudyHall(Long id) {
         StudyHall studyHall = studyHallRepository.findById(id).orElseThrow(()
-        -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Study hall doesnt exists"));
+                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Study hall doesn't exists"));
 
         return studyHall;
     }
@@ -38,7 +38,7 @@ public class StudyHallServiceImpl implements StudyHallService {
     @Override
     public void deleteStudyHall(Long id) throws ResponseStatusException {
         StudyHall studyHall = studyHallRepository.findById(id).orElseThrow(()
-                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Study hall doesnt exist"));
+                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Study hall doesn't exist"));
 
         studyHallRepository.deleteById(id);
     }
@@ -53,7 +53,7 @@ public class StudyHallServiceImpl implements StudyHallService {
 
         StudyHall studyHall = studyHallRepository.findById(idStudyHall).get();
         int avail = studyHall.getAvailability();
-        studyHall.setAvailability(avail-1);
+        studyHall.setAvailability(avail - 1);
         studyHallRepository.save(studyHall);
 
         return bookStudyHall;
@@ -70,7 +70,7 @@ public class StudyHallServiceImpl implements StudyHallService {
 
     public void editStudyHall(StudyHallForm studyHallForm) throws Exception {
 
-        StudyHall studyHall = studyHallRepository.findById(studyHallForm.getId()).orElseThrow(() -> new Exception("Study hall doesnt exist"));
+        StudyHall studyHall = studyHallRepository.findById(studyHallForm.getId()).orElseThrow(() -> new Exception("Study hall doesn't exist"));
 
         studyHall.setName(studyHallForm.getName());
         studyHall.setAddress(studyHallForm.getAddress());

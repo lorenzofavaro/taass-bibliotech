@@ -12,7 +12,7 @@ import java.util.Set;
 public class BookStudyHall {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long userId;
@@ -20,7 +20,6 @@ public class BookStudyHall {
     private Long StudyHallId;
 
     private Date date;
-
 
     public Long getId() {
         return id;

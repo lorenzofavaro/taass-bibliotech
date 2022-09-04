@@ -14,7 +14,7 @@ public class SortFilter {
         if (this.sortType == null) {
             return Sort.by("id").descending();
         }
-        switch(this.sortType) {
+        switch (this.sortType) {
             case "priceasc":
                 return Sort.by("price").ascending();
             case "pricedesc":

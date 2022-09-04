@@ -21,7 +21,7 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/create")
-    public ResponseEntity<Order> createOrder(@RequestHeader(HEADER_AUTH) String tokenHeader, @Valid @RequestBody OrderForm orderForm){
+    public ResponseEntity<Order> createOrder(@RequestHeader(HEADER_AUTH) String tokenHeader, @Valid @RequestBody OrderForm orderForm) {
         System.out.println("ORDER: " + orderForm.toString());
         Long accountId = RestUtility.getUserId(tokenHeader);
         Order order = orderService.createOrder(orderForm, accountId);
@@ -29,14 +29,14 @@ public class OrderController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Order>> getOrders(@RequestHeader(HEADER_AUTH) String tokenHeader){
+    public ResponseEntity<List<Order>> getOrders(@RequestHeader(HEADER_AUTH) String tokenHeader) {
         Long userId = RestUtility.getUserId(tokenHeader);
         List<Order> orders = orderService.getAllOrders(userId);
         return ResponseEntity.ok(orders);
     }
 
     @GetMapping("/{orderId}")
-    public ResponseEntity<Order> getOrders(@RequestHeader(HEADER_AUTH) String tokenHeader, @PathVariable UUID orderId){
+    public ResponseEntity<Order> getOrders(@RequestHeader(HEADER_AUTH) String tokenHeader, @PathVariable UUID orderId) {
         Long userId = RestUtility.getUserId(tokenHeader);
         Order order = orderService.getOrder(userId, orderId);
         return ResponseEntity.ok(order);

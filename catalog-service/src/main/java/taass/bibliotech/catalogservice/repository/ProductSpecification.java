@@ -13,7 +13,8 @@ import taass.bibliotech.catalogservice.entity.Product;
 
 public class ProductSpecification {
 
-    private ProductSpecification() {}
+    private ProductSpecification() {
+    }
 
     @SuppressWarnings("serial")
     public static Specification<Product> filterBy(List<String> categories, String search) {

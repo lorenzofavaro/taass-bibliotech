@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 public class StudyHall {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank

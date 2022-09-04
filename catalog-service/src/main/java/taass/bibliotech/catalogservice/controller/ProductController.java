@@ -21,13 +21,13 @@ public class ProductController {
     @PostMapping("/product/add")
     public HttpEntity<String> addProduct(@Valid @RequestBody ProductForm productForm) {
         productService.addProduct(productForm);
-        return  ResponseEntity.ok("Product added");
+        return ResponseEntity.ok("Product added");
     }
 
     @PostMapping("/product/edit")
     public HttpEntity<String> editProduct(@Valid @RequestBody ProductForm productForm) throws Exception {
         productService.editProduct(productForm);
-        return  ResponseEntity.ok("Product edited");
+        return ResponseEntity.ok("Product edited");
     }
 
     @DeleteMapping("/product/delete/{idProduct}")

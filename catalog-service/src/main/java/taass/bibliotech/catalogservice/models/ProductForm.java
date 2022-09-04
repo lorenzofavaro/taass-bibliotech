@@ -25,7 +25,9 @@ public class ProductForm {
         return title;
     }
 
-    public String getAuthor() { return author; }
+    public String getAuthor() {
+        return author;
+    }
 
     public String getDescription() {
         return description;
@@ -43,6 +45,8 @@ public class ProductForm {
         return categories;
     }
 
-    public long getId() { return id; }
+    public long getId() {
+        return id;
+    }
 }
 

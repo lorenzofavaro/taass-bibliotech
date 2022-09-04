@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor(staticName = "of")
 public class PurchaseOrderDto {
     private UUID orderId;
-    private Set<Triple> products; // (idProdotto, quantità, size)
+    private Set<Triple> products;
     private Double price;
     private Long userId;
 

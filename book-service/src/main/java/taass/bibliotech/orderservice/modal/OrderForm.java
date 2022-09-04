@@ -8,7 +8,7 @@ import java.util.UUID;
 public class OrderForm {
 
     @NotNull
-    private HashMap<Long, Integer> products;  //(productId, quantity)
+    private HashMap<Long, Integer> products;
 
     public HashMap<Long, Integer> getProducts() {
         return products;
@@ -20,5 +20,4 @@ public class OrderForm {
                 "products=" + products +
                 '}';
     }
-
 }

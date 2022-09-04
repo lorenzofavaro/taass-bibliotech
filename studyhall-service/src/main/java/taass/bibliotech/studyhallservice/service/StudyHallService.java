@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface StudyHallService {
 
-
     List<StudyHall> getAllStudyHalls();
 
     StudyHall getStudyHall(Long id);

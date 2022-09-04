@@ -16,7 +16,7 @@ public class Order {
     private Long userId;
     private Double total;
 
-    @OneToMany(mappedBy="order", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private Set<OrderItem> products = new HashSet<>();
 

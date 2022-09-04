@@ -19,7 +19,7 @@ public class OrderEvent implements Event {
     public OrderEvent() {
     }
 
-    public OrderEvent(PurchaseOrderDto purchaseOrder, OrderStatus orderStatus)  {
+    public OrderEvent(PurchaseOrderDto purchaseOrder, OrderStatus orderStatus) {
         this.purchaseOrder = purchaseOrder;
         this.orderStatus = orderStatus;
     }

@@ -13,13 +13,3 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query("SELECT DISTINCT c.name FROM Category c")
     List<String> findAllCategories();
 }
-
-
-/*
-	@EntityGraph(attributePaths = { "sizes", "categories", "brands" })
-	List<Article> findAllEagerBy();
-
-	@EntityGraph(attributePaths = { "sizes", "categories", "brands" })
-	Optional<Article> findById(Long id);
-
-	*/

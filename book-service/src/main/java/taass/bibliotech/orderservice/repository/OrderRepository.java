@@ -8,11 +8,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface OrderRepository  extends JpaRepository<Order, UUID> {
+public interface OrderRepository extends JpaRepository<Order, UUID> {
 
     List<Order> findAllByUserId(Long userId);
 
     Optional<Order> findByIdAndUserId(UUID orderId, Long userId);
-
-//    List<Order> findByOrderStatus(OrderStatus orderStatus);
 }

@@ -149,7 +149,7 @@ services:
       - eureka-server
 
   angular-service:
-      container_name: angular-client
-      image: lorenzofavaro/bibliotech:client
-      ports:
-        - "4200:80"
+    container_name: angular-client
+    image: lorenzofavaro/bibliotech:client
+    ports:
+      - "4200:80"

@@ -44,7 +44,7 @@ public class CatalogController {
     @PostMapping("/catalog/catalog")
     public ResponseEntity<List<Product>> filterCatalog(@RequestBody FilterCatalogForm filters) {
         Integer page = filters.getPage();
-        int pagenumber = (page == null || page <= 0) ? 0 : page-1;
+        int pagenumber = (page == null || page <= 0) ? 0 : page - 1;
         SortFilter sortFilter = new SortFilter((filters.getSort()));
         Page<Product> pageResult = catalogService.findArticlesByCriteria(
                 PageRequest.of(pagenumber, 9, sortFilter.getSortType()),

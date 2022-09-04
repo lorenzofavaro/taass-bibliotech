@@ -21,9 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     static final String[] USER_PATH = {
             "/auth-service/user/**",
             "/user-service/**",
-            "/cart-service/**",
             "/order-service/**",
-            "/payment-service/**"
     };
 
     static final String[] ADMIN_PATHS = {
