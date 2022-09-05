@@ -12,14 +12,14 @@ import {UserAuth} from '../../models/UserAuth';
 })
 export class NavigationComponent implements OnInit {
 
-  currentUserSubrscription: Subscription;
+  currentUserSubscription: Subscription;
   currentUser: UserAuth;
 
   constructor(private router: Router,
               private userService: UserService) { }
 
   ngOnInit(): void {
-    this.currentUserSubrscription = this.userService.currentUser.subscribe(user => {
+    this.currentUserSubscription = this.userService.currentUser.subscribe(user => {
       this.currentUser = user;
     });
   }
@@ -27,9 +27,5 @@ export class NavigationComponent implements OnInit {
   logout(): void {
     this.userService.logout();
     this.router.navigate(['/home']);
-  }
-
-  getCartItems(): string {
-    return localStorage.getItem('cartItems');
   }
 }

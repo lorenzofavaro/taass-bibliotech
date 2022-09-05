@@ -93,9 +93,6 @@ public class Order {
                 ", userId=" + userId +
                 ", total=" + total +
                 ", products=" + products +
-//                ", orderStatus=" + orderStatus +
-//                ", paymentStatus=" + paymentStatus +
-//                ", inventoryStatus=" + inventoryStatus +
                 ", date=" + date +
                 '}';
     }

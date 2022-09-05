@@ -22,29 +22,31 @@
         </li>
       </ul>
       <ul class="navbar-nav ml-auto font-weight-bold">
-      <ng-container *ngIf="currentUser; else noUser">
-        <li *ngIf="currentUser.roles === 'ROLE_ADMIN'" class="nav-item">
-          <div class="dropdown show">
-            <a class="btn nav-link font-weight-bold dropdown-toggle" style="color: #00000080;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Pannello Admin</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="/admin/books">Gestione libri</a>
-              <a class="dropdown-item" href="/admin/studyhalls">Gestione aule studio</a>
+        <ng-container *ngIf="currentUser; else noUser">
+          <li *ngIf="currentUser.roles === 'ROLE_ADMIN'" class="nav-item">
+            <div class="dropdown show">
+              <a class="btn nav-link font-weight-bold dropdown-toggle" style="color: #00000080;" href="#" role="button"
+                 id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Pannello Admin</a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="/admin/books">Gestione libri</a>
+                <a class="dropdown-item" href="/admin/studyhalls">Gestione aule studio</a>
+              </div>
             </div>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/profile">Il mio profilo <i class="bi bi-person-circle align-text-bottom"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" (click)="logout()">Esci <i class="bi bi-box-arrow-right align-text-bottom"></i></a>
-        </li>
-      </ng-container>
-      <ng-template #noUser>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/login">Il mio profilo</a>
-        </li>
-      </ng-template>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/profile">Il mio profilo <i
+              class="bi bi-person-circle align-text-bottom"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()">Esci <i class="bi bi-box-arrow-right align-text-bottom"></i></a>
+          </li>
+        </ng-container>
+        <ng-template #noUser>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">Il mio profilo</a>
+          </li>
+        </ng-template>
       </ul>
     </div>
   </nav>

@@ -79,7 +79,6 @@ export class UserService {
   public logout(): void {
     this.currentUserSubject.next(null);
     localStorage.removeItem('currentUser');
-    localStorage.removeItem('cartItems');
   }
 
   public get(): Observable<User> {
@@ -88,9 +87,5 @@ export class UserService {
 
   public update(data): Observable<string> {
     return this.http.post(`${this.apiServerUrl}/user-service/user`, data, {responseType: 'text'});
-  }
-
-  updateAddress(data): Observable<string> {
-    return this.http.post(`${this.apiServerUrl}/user-service/user/address`, data, {responseType: 'text'});
   }
 }

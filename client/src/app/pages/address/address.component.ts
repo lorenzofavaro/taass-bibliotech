@@ -7,7 +7,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import * as Feather from 'feather-icons';
 import {StudyhallsService} from "../../services/studyhalls.service";
-import {Order} from "../../models/order";
 import {BookingStudyHalls} from "../../models/BookingStudyHalls";
 import {Studyhalls} from "../../models/Studyhalls";
 

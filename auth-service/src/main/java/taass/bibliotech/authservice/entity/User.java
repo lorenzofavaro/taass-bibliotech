@@ -18,7 +18,7 @@ public class User {
     private String lastName;
     @NotBlank
     @Size(max = 128)
-    private String email; //Sarà l'username!
+    private String email;
     private String password;
     private String roles;
 

@@ -26,16 +26,8 @@ export class CatalogService {
     return this.http.get<Product>(`${this.apiServerUrl}/catalog-service/catalog/${id}`);
   }
 
-  public getBrands(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.apiServerUrl}/catalog-service/catalog/brands`);
-  }
-
   public getCategories(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiServerUrl}/catalog-service/catalog/categories`);
-  }
-
-  public getSizs(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.apiServerUrl}/catalog-service/catalog/sizes`);
   }
 
   public getFilterProducts(data): Observable<Product[]> {

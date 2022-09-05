@@ -9,10 +9,17 @@
           </small>
         </div>
         <div class="list-group list-group-flush">
-          <a routerLink="/profile" class="list-group-item list-group-item-action active"><i data-feather="user" class="mr-3"></i> Profilo</a>
-          <a routerLink="/orders" class="list-group-item list-group-item-action"><i data-feather="book" class="mr-3"></i> Libri prenotati</a>
-          <a routerLink="/address" class="list-group-item list-group-item-action"><i data-feather="calendar" class="mr-3"></i> Aule prenotate</a>
-          <a (click)="logout()" class="list-group-item list-group-item-action text-danger"><i data-feather="log-out" class="mr-3"></i> Esci</a>
+          <a routerLink="/profile" class="list-group-item list-group-item-action active"><i data-feather="user"
+                                                                                            class="mr-3"></i>
+            Profilo</a>
+          <a routerLink="/orders" class="list-group-item list-group-item-action"><i data-feather="book"
+                                                                                    class="mr-3"></i> Libri
+            prenotati</a>
+          <a routerLink="/address" class="list-group-item list-group-item-action"><i data-feather="calendar"
+                                                                                     class="mr-3"></i> Aule
+            prenotate</a>
+          <a (click)="logout()" class="list-group-item list-group-item-action text-danger"><i data-feather="log-out"
+                                                                                              class="mr-3"></i> Esci</a>
         </div>
       </div>
     </div>
@@ -39,7 +46,8 @@
 
       <div class="card">
         <div class="card-body">
-          <h3>Il mio profilo</h3><hr>
+          <h3>Il mio profilo</h3>
+          <hr>
           <form id="profileForm" [formGroup]="userFormGroup" (ngSubmit)="updateUser()">
             <div class="form-row">
               <div class="form-group col-sm-6">
@@ -54,7 +62,8 @@
               </div>
               <div class="form-group col-sm-6">
                 <label for="email">Indirizzo email</label>
-                <input required="required" type="text" class="form-control" formControlName="email" value="{{user?.email}}"
+                <input required="required" type="text" class="form-control" formControlName="email"
+                       value="{{user?.email}}"
                        id="email" name="email">
                 <div class="invalid-feedback">Email già in uso.</div>
               </div>
@@ -65,7 +74,7 @@
               </div>
               <div class="form-group col-sm-6">
                 <label for="txtConfirmPassword">Conferma password</label>
-                <input type="password" class="form-control" formControlName="passwordConfirm" id="txtConfirmPassword" >
+                <input type="password" class="form-control" formControlName="passwordConfirm" id="txtConfirmPassword">
                 <div class="invalid-feedback">Le password non coincidono.</div>
               </div>
               <div class="form-group col-12">

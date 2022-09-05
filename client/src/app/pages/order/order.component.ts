@@ -8,8 +8,6 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {CatalogService} from '../../services/catalog.service';
 import {UserService} from '../../services/user.service';
 import {User} from '../../models/User';
-import {PaymentService} from '../../services/payment.service';
-import {Payment} from '../../models/payment';
 import * as Feather from 'feather-icons';
 
 @Component({
@@ -22,7 +20,6 @@ export class OrderComponent implements OnInit, AfterViewInit {
   orderId: string;
   order: Order;
   products: Array<Product> = [];
-  payment: Payment;
   public user: User;
   currentDate = new Date();
   shippingDate = new Date();
@@ -31,15 +28,13 @@ export class OrderComponent implements OnInit, AfterViewInit {
               private router: Router,
               private orderService: OrderService,
               private catalogService: CatalogService,
-              private userService: UserService,
-              private paymentService: PaymentService) { }
+              private userService: UserService) { }
 
   ngOnInit(): void {
     this.shippingDate.setDate(this.currentDate.getDate() + 30);
     this.getUser();
     this.orderId = this.route.snapshot.paramMap.get('id');
     this.getOrder();
-    this.getPayment();
   }
 
   public getUser(): void {
@@ -78,17 +73,6 @@ export class OrderComponent implements OnInit, AfterViewInit {
       );
     });
     console.log(this.products);
-  }
-
-  private getPayment(): void {
-    this.paymentService.getPayment(this.orderId).subscribe(
-      (response: Payment) => {
-        this.payment = response;
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.message);
-      }
-    );
   }
 
   logout(): void {
