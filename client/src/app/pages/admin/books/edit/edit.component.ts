@@ -57,7 +57,7 @@ export class AdminBooksEditComponent implements OnInit {
       categories: this.productCategories
     };
     this.catalogService.editProduct(body).subscribe(result => {
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/admin/books']);
       },
       (error: HttpErrorResponse) => {
         this.error = true;
