@@ -8,10 +8,10 @@ import {newArray} from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-store',
-  templateUrl: './store.component.html',
-  styleUrls: ['./store.component.css']
+  templateUrl: './catalog.component.html',
+  styleUrls: ['./catalog.component.css']
 })
-export class StoreComponent implements OnInit, AfterViewInit {
+export class CatalogComponent implements OnInit, AfterViewInit {
 
   constructor(private catalogService: CatalogService) { }
 

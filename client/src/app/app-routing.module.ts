@@ -9,7 +9,7 @@ import { OrdersComponent } from "./pages/orders/orders.component";
 import { StudyHallsBookingsComponent } from "./pages/studyhalls_bookings/studyhalls_bookings.component";
 import { OrderComponent } from "./pages/order/order.component";
 import { ArticleComponent } from "./pages/article/article.component";
-import { StoreComponent } from "./pages/store/store.component";
+import { CatalogComponent } from "./pages/catalog/catalog.component";
 import { AdminBooksComponent } from "./pages/admin/books/admin.component";
 import { AdminBooksEditComponent } from "./pages/admin/books/edit/edit.component";
 import { AdminBooksAddComponent } from "./pages/admin/books/add/add.component";
@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "login", component: LoginComponent },
   { path: "article/:id", component: ArticleComponent },
-  { path: "store", component: StoreComponent },
+  { path: "catalog", component: CatalogComponent },
   { path: "studyhalls", component: StudyhallsComponent },
   {
     path: "profile",

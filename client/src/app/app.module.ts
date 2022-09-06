@@ -16,7 +16,7 @@ import { StudyHallsBookingsComponent } from "./pages/studyhalls_bookings/studyha
 import { OrderComponent } from "./pages/order/order.component";
 import { ArticleComponent } from "./pages/article/article.component";
 import { StudyhallsComponent } from "./pages/studyhalls/studyhalls.component";
-import { StoreComponent } from "./pages/store/store.component";
+import { CatalogComponent } from "./pages/catalog/catalog.component";
 import { AdminBooksComponent } from "./pages/admin/books/admin.component";
 import { AdminBooksAddComponent } from "./pages/admin/books/add/add.component";
 import { AdminBooksEditComponent } from "./pages/admin/books/edit/edit.component";
@@ -44,7 +44,7 @@ import { AdminStudyHallsEditComponent } from "./pages/admin/studyhalls/edit/stud
     StudyHallsBookingsComponent,
     OrderComponent,
     ArticleComponent,
-    StoreComponent,
+    CatalogComponent,
     AdminBooksComponent,
     AdminBooksEditComponent,
     AdminBooksAddComponent,
