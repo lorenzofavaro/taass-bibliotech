@@ -12,7 +12,7 @@ import { NavigationComponent } from "./parts/navigation/navigation.component";
 import { ProfileComponent } from "./pages/profile/profile.component";
 import { TokenInterceptor } from "./auth/token.interceptor";
 import { OrdersComponent } from "./pages/orders/orders.component";
-import { AddressComponent } from "./pages/address/address.component";
+import { StudyHallsBookingsComponent } from "./pages/studyhalls_bookings/studyhalls_bookings.component";
 import { OrderComponent } from "./pages/order/order.component";
 import { ArticleComponent } from "./pages/article/article.component";
 import { StudyhallsComponent } from "./pages/studyhalls/studyhalls.component";
@@ -41,7 +41,7 @@ import { AdminStudyHallsEditComponent } from "./pages/admin/studyhalls/edit/stud
     NavigationComponent,
     ProfileComponent,
     OrdersComponent,
-    AddressComponent,
+    StudyHallsBookingsComponent,
     OrderComponent,
     ArticleComponent,
     StoreComponent,

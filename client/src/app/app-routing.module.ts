@@ -6,7 +6,7 @@ import { LoginComponent } from "./pages/login/login.component";
 import { ProfileComponent } from "./pages/profile/profile.component";
 import { AuthGuard } from "./auth/auth.guard";
 import { OrdersComponent } from "./pages/orders/orders.component";
-import { AddressComponent } from "./pages/address/address.component";
+import { StudyHallsBookingsComponent } from "./pages/studyhalls_bookings/studyhalls_bookings.component";
 import { OrderComponent } from "./pages/order/order.component";
 import { ArticleComponent } from "./pages/article/article.component";
 import { StoreComponent } from "./pages/store/store.component";
@@ -36,8 +36,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: "address",
-    component: AddressComponent,
+    path: "studyhalls/bookings",
+    component: StudyHallsBookingsComponent,
     canActivate: [AuthGuard],
   },
   {

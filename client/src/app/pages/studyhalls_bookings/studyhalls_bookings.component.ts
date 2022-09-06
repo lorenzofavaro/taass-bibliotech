@@ -11,11 +11,11 @@ import {BookingStudyHalls} from "../../models/BookingStudyHalls";
 import {Studyhalls} from "../../models/Studyhalls";
 
 @Component({
-  selector: 'app-address',
-  templateUrl: './address.component.html',
-  styleUrls: ['./address.component.css']
+  selector: 'app-studyhalls_bookings',
+  templateUrl: './studyhalls_bookings.component.html',
+  styleUrls: ['./studyhalls_bookings.component.css']
 })
-export class AddressComponent implements OnInit, AfterViewInit {
+export class StudyHallsBookingsComponent implements OnInit, AfterViewInit {
 
   public user: User;
   public bookings: BookingStudyHalls[];

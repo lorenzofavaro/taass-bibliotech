@@ -17,7 +17,7 @@
       <td>{{product.author}}</td>
       <td><div style="display:flex;"><span *ngFor="let category of product.categories" class="badge badge-secondary mt-1 mr-1">{{category.name}}</span></div></td>
       <td>{{product.stock}}</td>
-      <td><a href="/admin/edit/{{product.id}}" class="badge badge-primary btn-space">Modifica</a>
+      <td><a href="/admin/books/edit/{{product.id}}" class="badge badge-primary btn-space">Modifica</a>
           <a (click)="delete(product.id)" class="badge badge-danger">Elimina </a>
       </td>
     </tr>
