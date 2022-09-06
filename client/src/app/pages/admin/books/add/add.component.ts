@@ -39,7 +39,7 @@ export class AdminBooksAddComponent implements OnInit {
       categories: this.productCategories
     };
     this.catalogService.addProduct(body).subscribe(result => {
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/admin/books']);
       },
       (error: HttpErrorResponse) => {
         this.error = true;

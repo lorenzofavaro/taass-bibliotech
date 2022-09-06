@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface CatalogService {
 
-
     List<Product> getAllProducts();
 
     Page<Product> findArticlesByCriteria(PageRequest pageable, List<String> categories, String search);

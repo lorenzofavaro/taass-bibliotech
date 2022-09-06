@@ -85,4 +85,8 @@ export class StoreComponent implements OnInit, AfterViewInit {
     this.orderFilter = s;
     this.filterProducts();
   }
+
+  searchChange(): void {
+    this.filterProducts();
+  }
 }
