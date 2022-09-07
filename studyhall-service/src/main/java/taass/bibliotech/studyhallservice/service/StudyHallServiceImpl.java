@@ -45,6 +45,13 @@ public class StudyHallServiceImpl implements StudyHallService {
 
     @Override
     public BookStudyHall createBook(Long idStudyHall, Long accountId) {
+        List<BookStudyHall> dbBookStudyHalls = bookStudyHallRepository.findAllByUserId(accountId);
+        // If the user has already another booking today for some studyhall, we denied the booking
+        if (dbBookStudyHalls != null && dbBookStudyHalls.size() > 0) {
+            if (dbBookStudyHalls.stream().anyMatch(x -> x.getDate().getDay() == new Date().getDay())) {
+                return null;
+            }
+        }
         BookStudyHall bookStudyHall = new BookStudyHall();
         bookStudyHall.setDate(new Date());
         bookStudyHall.setUserId(accountId);
@@ -57,7 +64,6 @@ public class StudyHallServiceImpl implements StudyHallService {
         studyHallRepository.save(studyHall);
 
         return bookStudyHall;
-
     }
 
     public void addStudyHall(StudyHallForm studyHallForm) {
@@ -69,9 +75,7 @@ public class StudyHallServiceImpl implements StudyHallService {
     }
 
     public void editStudyHall(StudyHallForm studyHallForm) throws Exception {
-
         StudyHall studyHall = studyHallRepository.findById(studyHallForm.getId()).orElseThrow(() -> new Exception("Study hall doesn't exist"));
-
         studyHall.setName(studyHallForm.getName());
         studyHall.setAddress(studyHallForm.getAddress());
         studyHall.setAvailability(studyHallForm.getAvailability());
