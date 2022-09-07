@@ -48,7 +48,6 @@ public class OrderServiceImpl implements OrderService {
         order.setProducts(orderForm.getProducts());
         order.setDate(new Date());
         order.setOrderStatus(OrderStatus.ORDER_CREATED);
-        orderRepository.save(order);
 
         List<Order> dbOrders = orderRepository.findAllByUserId(accountId);
         if (dbOrders != null && dbOrders.size() > 0) {
@@ -58,13 +57,11 @@ public class OrderServiceImpl implements OrderService {
                 boolean isOrderRecent = dbOrder.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(currentDateMinus30Days);
                 boolean bookOrderExists = dbOrder.getProducts().stream().anyMatch(x -> Objects.equals(x.getProductId(), productId));
                 if (isOrderRecent && bookOrderExists) {
-                    InventoryEvent inventoryEvent = new InventoryEvent(order.getId(), InventoryStatus.REJECTED);
-                    rabbitTemplate.convertAndSend(exchange, routingkey, inventoryEvent);
                     return null;
                 }
             }
         }
-
+        orderRepository.save(order);
         Set<Triple> products = new HashSet<>();
         for (OrderItem orderItem : order.getProducts()) {
             products.add(Triple.of(orderItem.getProductId(), 1, null));
