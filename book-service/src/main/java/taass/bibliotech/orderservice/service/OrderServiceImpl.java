@@ -19,6 +19,8 @@ import taass.bibliotech.orderservice.modal.OrderForm;
 import taass.bibliotech.orderservice.repository.OrderRepository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 @Service
@@ -48,6 +50,24 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderStatus(OrderStatus.ORDER_CREATED);
         orderRepository.save(order);
 
+        List<Order> dbOrders = orderRepository.findAllByUserId(accountId);
+        if (dbOrders != null && dbOrders.size() > 0) {
+            System.out.println("Ho trovato qualche ordine per " + accountId);
+            for (Order dbOrder : dbOrders) {
+                System.out.println("Ordine: " + dbOrder);
+                Long productId = order.getProducts().iterator().next().getProductId();
+                LocalDate currentDateMinus30Days = LocalDate.now().minusDays(30);
+                boolean isOrderRecent = dbOrder.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(currentDateMinus30Days);
+                boolean bookOrderExists = dbOrder.getProducts().stream().anyMatch(x -> Objects.equals(x.getProductId(), productId));
+                if (isOrderRecent && bookOrderExists) {
+                    System.out.println("Order id: " + order.getId());
+                    InventoryEvent inventoryEvent = new InventoryEvent(order.getId(), InventoryStatus.REJECTED);
+                    rabbitTemplate.convertAndSend(exchange, routingkey, inventoryEvent);
+                    return null;
+                }
+            }
+        }
+
         Set<Triple> products = new HashSet<>();
         for (OrderItem orderItem : order.getProducts()) {
             products.add(Triple.of(orderItem.getProductId(), 1, null));
@@ -61,7 +81,6 @@ public class OrderServiceImpl implements OrderService {
         );
 
         var orderEvent = new OrderEvent(purchaseOrderDto, OrderStatus.ORDER_CREATED);
-
 
         rabbitTemplate.convertAndSend(exchange, routingkey, orderEvent);
         return order;

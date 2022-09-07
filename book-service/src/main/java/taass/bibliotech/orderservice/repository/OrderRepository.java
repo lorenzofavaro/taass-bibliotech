@@ -1,7 +1,6 @@
 package taass.bibliotech.orderservice.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-//import taass.bibliotech.events.order.OrderStatus;
 import taass.bibliotech.orderservice.entity.Order;
 
 import java.util.List;

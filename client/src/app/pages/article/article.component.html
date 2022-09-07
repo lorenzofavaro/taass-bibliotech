@@ -10,13 +10,8 @@
     </button>
   </div>
   <div *ngIf="errMsg" class="alert alert-danger alert-dismissible fade show" role="alert">
-    <div *ngIf="product.stock == 0; then content">
-      <strong>Il libro non è più disponibile. Ti avviseremo quando lo sarà di nuovo.</strong>
-    </div>
-    <ng-template #content>
-      <strong>Si è verificato un errore durante la prenotazione. Riprovare.</strong>
-    </ng-template>
-
+    <ng-template [ngIf]="product.stock == 0"><strong>Il libro non è più disponibile. Ti avviseremo quando lo sarà di nuovo.</strong></ng-template>
+    <ng-template [ngIf]="errMsgDisplay == 'already_booked'"><strong>Hai già prenotato questo libro!</strong></ng-template>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>

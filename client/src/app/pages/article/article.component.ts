@@ -18,6 +18,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
 
   errMsg = false;
   succMsg = false;
+  errMsgDisplay = "";
   urlRedirect = "";
 
   constructor(
@@ -48,23 +49,28 @@ export class ArticleComponent implements OnInit, AfterViewInit {
       this.succMsg = false;
       this.errMsg = true;
     } else {
-
-    const productsMap: Map<number, number> = new Map<number, number>();
-    productsMap.set(this.productId, 1);
-    const productsMap2 = {};
-    productsMap.forEach((val: number, key: number) => {
+      const productsMap: Map<number, number> = new Map<number, number>();
+      productsMap.set(this.productId, 1);
+      const productsMap2 = {};
+      productsMap.forEach((val: number, key: number) => {
         productsMap2[key] = val;
-    });
+      });
 
-    const newOrder = {
-      products: productsMap2
-    }
+      const newOrder = {
+        products: productsMap2,
+      };
 
       this.orderService.createOrder(newOrder).subscribe(
         (result) => {
-          this.errMsg = false;
-          this.succMsg = true;
-          this.urlRedirect = result.id;
+          if (result == null) {
+            this.succMsg = false;
+            this.errMsg = true;
+            this.errMsgDisplay = 'already_booked';
+          } else {
+            this.errMsg = false;
+            this.succMsg = true;
+            this.urlRedirect = result.id;
+          }
         },
         (error: HttpErrorResponse) => {
           this.succMsg = false;
