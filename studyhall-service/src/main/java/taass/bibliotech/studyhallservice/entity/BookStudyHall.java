@@ -17,7 +17,7 @@ public class BookStudyHall {
 
     private Long userId;
 
-    private Long StudyHallId;
+    private Long studyHallId;
 
     private Date date;
 
@@ -38,11 +38,11 @@ public class BookStudyHall {
     }
 
     public Long getStudyHallId() {
-        return StudyHallId;
+        return studyHallId;
     }
 
     public void setStudyHallId(Long studyHallId) {
-        StudyHallId = studyHallId;
+        this.studyHallId = studyHallId;
     }
 
     public Date getDate() {

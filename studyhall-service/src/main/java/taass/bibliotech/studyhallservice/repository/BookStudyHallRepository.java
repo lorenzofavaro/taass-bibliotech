@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface BookStudyHallRepository extends JpaRepository<BookStudyHall, Long> {
     List<BookStudyHall> findAllByUserId(Long userId);
+
+    List<BookStudyHall> findAllByStudyHallId(Long studyHallId);
 }

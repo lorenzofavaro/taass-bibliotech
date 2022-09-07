@@ -24,7 +24,14 @@ public class StudyHallServiceImpl implements StudyHallService {
 
     @Override
     public List<StudyHall> getAllStudyHalls() {
-        return studyHallRepository.findAllEagerBy();
+        List<StudyHall> studyHalls = studyHallRepository.findAllEagerBy();
+        for (StudyHall studyHall : studyHalls) {
+            int totalAvailability = studyHall.getAvailability();
+            List<BookStudyHall> bookStudyHalls = bookStudyHallRepository.findAllByStudyHallId(studyHall.getId());
+            int studyHallsBookedToday = (int) bookStudyHalls.stream().filter(x -> Objects.equals(x.getDate().getDay(), new Date().getDay())).count();
+            studyHall.setAvailability(Integer.max(0, totalAvailability - studyHallsBookedToday));
+        }
+        return studyHalls;
     }
 
     @Override
@@ -57,11 +64,6 @@ public class StudyHallServiceImpl implements StudyHallService {
         bookStudyHall.setUserId(accountId);
         bookStudyHall.setStudyHallId(idStudyHall);
         bookStudyHallRepository.save(bookStudyHall);
-
-        StudyHall studyHall = studyHallRepository.findById(idStudyHall).get();
-        int avail = studyHall.getAvailability();
-        studyHall.setAvailability(avail - 1);
-        studyHallRepository.save(studyHall);
 
         return bookStudyHall;
     }
