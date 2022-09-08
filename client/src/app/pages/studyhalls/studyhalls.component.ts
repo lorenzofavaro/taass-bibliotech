@@ -29,7 +29,6 @@ export class StudyhallsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.loadStudyHallsBookings();
-    console.log(this.bookings);
     this.loadStudyhalls();
   }
 
@@ -82,6 +81,7 @@ export class StudyhallsComponent implements OnInit, AfterViewInit {
             this.errMsg = false;
             this.succMsg = true;
             this.studyhalls[studyIndex].availability--;
+            this.ngOnInit();
           }
         },
         (error: HttpErrorResponse) => {

@@ -112,8 +112,6 @@ public class StudyHallServiceImpl implements StudyHallService {
                 todayBookings.add(bookStudyHall);
             }
         }
-        System.out.println("bookings: " + Arrays.toString(bookings.toArray()));
-        System.out.println("todayBookings: " + Arrays.toString(todayBookings.toArray()));
         return todayBookings;
     }
 }
