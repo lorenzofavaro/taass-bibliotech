@@ -28,6 +28,12 @@ public class OrderController {
         return ResponseEntity.ok(order);
     }
 
+    @GetMapping("/cancel_order/{orderId}")
+    public ResponseEntity<Boolean> cancelOrder(@RequestHeader(HEADER_AUTH) String tokenHeader, @PathVariable UUID orderId) {
+        orderService.cancelOrder(orderId);
+        return ResponseEntity.ok(true);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Order>> getOrders(@RequestHeader(HEADER_AUTH) String tokenHeader) {
         Long userId = RestUtility.getUserId(tokenHeader);

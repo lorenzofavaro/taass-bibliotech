@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import taass.bibliotech.catalogservice.entity.Product;
 import taass.bibliotech.catalogservice.repository.ProductRepository;
-import taass.bibliotech.dto.Triple;
 import taass.bibliotech.events.inventory.InventoryEvent;
 import taass.bibliotech.events.inventory.InventoryStatus;
 import taass.bibliotech.events.order.OrderEvent;
+import taass.bibliotech.events.order.OrderStatus;
 
 import java.util.Optional;
 
@@ -31,25 +31,25 @@ public class InventoryServiceImpl implements InventoryService {
 
     @RabbitListener(queues = "${spring.rabbitmq.template.default-receive-queue}")
     public void receiveOrderMessage(OrderEvent orderEvent) {
-        System.out.println("RECEIVED BOOKING BOOK: " + orderEvent.toString());
-        InventoryEvent inventoryEvent = null;
-        Long productId = 0L;
-        Optional<Product> optProduct = null;
-        for (Triple entry : orderEvent.getPurchaseOrder().getProducts()) {
-            productId = entry.getProductId();
-            optProduct = productRepository.findById(productId);
-            int quantity = entry.getQuantity();
-            if (optProduct == null || optProduct.isEmpty() || optProduct.get().getStock() < quantity)
-                inventoryEvent = new InventoryEvent(orderEvent.getPurchaseOrder().getOrderId(), InventoryStatus.REJECTED); // Il libro che si voleva prenotare non è più disponibile.
-        }
+        InventoryEvent inventoryEvent = new InventoryEvent(orderEvent.getBookOrder().getOrderId(), InventoryStatus.REJECTED);
+        Long productId = orderEvent.getBookOrder().getProductId();
+        Optional<Product> optProduct = productRepository.findById(productId);
 
-        if (inventoryEvent == null) {
+        if (orderEvent.getOrderStatus() == OrderStatus.ORDER_CREATED) { // Richiesta di ordine libro
+            if (optProduct.isEmpty() || optProduct.get().getStock() < 1) {
+                inventoryEvent = new InventoryEvent(orderEvent.getBookOrder().getOrderId(), InventoryStatus.REJECTED); // Il libro che si voleva prenotare non è più disponibile.
+            } else {
+                Product product = optProduct.get();
+                product.setStock(product.getStock() - 1); // Aggiorno la disponibilità del libro
+                productRepository.save(product);
+                inventoryEvent = new InventoryEvent(orderEvent.getBookOrder().getOrderId(), InventoryStatus.RESERVED);
+            }
+        } else if (orderEvent.getOrderStatus() == OrderStatus.ORDER_CANCELLED) { // Richiesta di cancellazione di un ordine
             Product product = optProduct.get();
-            product.setStock(product.getStock()-1); //Aggiorno la disponibilità del libro
+            product.setStock(product.getStock() + 1); // Aggiorno la disponibilità del libro
             productRepository.save(product);
-            inventoryEvent = new InventoryEvent(orderEvent.getPurchaseOrder().getOrderId(), InventoryStatus.RESERVED);
+            inventoryEvent = new InventoryEvent(orderEvent.getBookOrder().getOrderId(), InventoryStatus.REJECTED);
         }
-
         rabbitTemplate.convertAndSend(exchange, routingkey, inventoryEvent);
     }
 }

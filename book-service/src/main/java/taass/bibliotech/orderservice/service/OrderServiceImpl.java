@@ -7,14 +7,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import taass.bibliotech.dto.PurchaseOrderDto;
-import taass.bibliotech.dto.Triple;
+import taass.bibliotech.dto.BookOrderDto;
 import taass.bibliotech.events.inventory.InventoryEvent;
 import taass.bibliotech.events.inventory.InventoryStatus;
 import taass.bibliotech.events.order.OrderEvent;
 import taass.bibliotech.events.order.OrderStatus;
 import taass.bibliotech.orderservice.entity.Order;
-import taass.bibliotech.orderservice.entity.OrderItem;
 import taass.bibliotech.orderservice.modal.OrderForm;
 import taass.bibliotech.orderservice.repository.OrderRepository;
 
@@ -53,22 +51,35 @@ public class OrderServiceImpl implements OrderService {
             return null;
         }
         orderRepository.save(order);
-        Set<Triple> products = new HashSet<>();
-        for (OrderItem orderItem : order.getProducts()) {
-            products.add(Triple.of(orderItem.getProductId(), 1, null));
-        }
+        Long productId = order.getProducts().iterator().next().getProductId();
 
-        PurchaseOrderDto purchaseOrderDto = PurchaseOrderDto.of(
+        BookOrderDto bookOrderDto = BookOrderDto.of(
                 order.getId(),
-                products,
-                order.getTotal(),
+                productId,
                 order.getUserId()
         );
 
-        var orderEvent = new OrderEvent(purchaseOrderDto, OrderStatus.ORDER_CREATED);
+        var orderEvent = new OrderEvent(bookOrderDto, OrderStatus.ORDER_CREATED);
 
         rabbitTemplate.convertAndSend(exchange, routingkey, orderEvent);
         return order;
+    }
+
+    @Override
+    @Transactional
+    public Boolean cancelOrder(UUID orderId) {
+        Order order = orderRepository.findById(orderId).get();
+        Long productId = order.getProducts().iterator().next().getProductId();
+
+        BookOrderDto bookOrderDto = BookOrderDto.of(
+                order.getId(),
+                productId,
+                order.getUserId()
+        );
+        var orderEvent = new OrderEvent(bookOrderDto, OrderStatus.ORDER_CANCELLED);
+
+        rabbitTemplate.convertAndSend(exchange, routingkey, orderEvent);
+        return true;
     }
 
     @RabbitListener(queues = "${spring.rabbitmq.template.default-receive-queue}")

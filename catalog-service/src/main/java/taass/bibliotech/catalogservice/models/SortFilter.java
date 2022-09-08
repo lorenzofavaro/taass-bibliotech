@@ -15,10 +15,6 @@ public class SortFilter {
             return Sort.by("id").descending();
         }
         switch (this.sortType) {
-            case "priceasc":
-                return Sort.by("price").ascending();
-            case "pricedesc":
-                return Sort.by("price").descending();
             case "alphasc":
                 return Sort.by("title").ascending();
             case "alphdesc":

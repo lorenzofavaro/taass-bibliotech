@@ -48,6 +48,28 @@ export class OrderComponent implements OnInit, AfterViewInit {
     );
   }
 
+//   public returnOrder(): void {
+//
+//   }
+
+  private reloadCurrentRoute() {
+      let currentUrl = this.router.url;
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([currentUrl]);
+      });
+  }
+
+  public cancelOrder(): void {
+    this.orderService.cancelOrder(this.orderId).subscribe(
+      (response: Boolean) => {
+        console.log(response);
+        this.reloadCurrentRoute();
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.message);
+      });
+  }
+
   private getOrder(): void {
     this.orderService.getOrder(this.orderId).subscribe(
       (response: Order) => {

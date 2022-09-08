@@ -1,7 +1,6 @@
 package taass.bibliotech.events.inventory;
 
 import lombok.Data;
-import taass.bibliotech.dto.InventoryDto;
 import taass.bibliotech.events.Event;
 
 import java.util.Date;

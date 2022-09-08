@@ -17,6 +17,10 @@ export class OrderService {
     return this.http.get<Order[]>(`${this.apiServerUrl}/booking-service/all`);
   }
 
+  public cancelOrder(id: string): Observable<Boolean> {
+    return this.http.get<Boolean>(`${this.apiServerUrl}/booking-service/cancel_order/${id}`);
+  }
+
   public getOrder(id: string): Observable<Order> {
     return this.http.get<Order>(`${this.apiServerUrl}/booking-service/${id}`);
   }

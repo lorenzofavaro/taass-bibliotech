@@ -10,10 +10,16 @@
           </small>
         </div>
         <div class="list-group list-group-flush">
-          <a routerLink="/profile" class="list-group-item list-group-item-action"><i data-feather="user" class="mr-3"></i> Profilo</a>
-          <a routerLink="/orders" class="list-group-item list-group-item-action active"><i data-feather="book" class="mr-3"></i> Libri prenotati</a>
-          <a routerLink="/studyhalls/bookings" class="list-group-item list-group-item-action"><i data-feather="calendar" class="mr-3"></i> Aule prenotate</a>
-          <a (click)="logout()" class="list-group-item list-group-item-action text-danger"><i data-feather="log-out" class="mr-3"></i> Esci</a>
+          <a routerLink="/profile" class="list-group-item list-group-item-action"><i data-feather="user"
+                                                                                     class="mr-3"></i> Profilo</a>
+          <a routerLink="/orders" class="list-group-item list-group-item-action active"><i data-feather="book"
+                                                                                           class="mr-3"></i> Libri
+            prenotati</a>
+          <a routerLink="/studyhalls/bookings" class="list-group-item list-group-item-action"><i data-feather="calendar"
+                                                                                                 class="mr-3"></i> Aule
+            prenotate</a>
+          <a (click)="logout()" class="list-group-item list-group-item-action text-danger"><i data-feather="log-out"
+                                                                                              class="mr-3"></i> Esci</a>
         </div>
       </div>
     </div>
@@ -26,7 +32,7 @@
             <div class="row">
               <div class="col-md-4">
                 <h6 class="text-muted font-weight-bold">Prenotato da:</h6>
-                  {{user?.firstName}} {{user?.lastName}}
+                {{user?.firstName}} {{user?.lastName}}
                 <p>in data: {{order?.date | date: 'dd MMM yyyy'}}<br>
 
               </div>
@@ -35,22 +41,33 @@
                 <p>entro il: {{this.shippingDate | date: 'dd MMM yyyy'}}</p>
               </div>
             </div>
-            <article class="card">
-              <div class="card-body row no-gutters">
-
-                <div class="col" [ngSwitch]="order?.orderStatus">
-                  <span *ngSwitchCase="'ORDER_CREATED'"><strong>Stato:</strong> <br> Prenotazione creata</span>
-                  <span *ngSwitchCase="'ORDER_COMPLETED'"><strong>Stato:</strong> <br> Prenotazione confermata</span>
-                  <span *ngSwitchCase="'ORDER_CANCELLED'"><strong>Stato:</strong> <br> Prenotazione cancellata</span>
+            <div class="row">
+              <article class="card col-lg-6 col-md-12 col-sm-12">
+                <div class="card-body row no-gutters">
+                  <div class="col" [ngSwitch]="order?.orderStatus">
+                    <span *ngSwitchCase="'ORDER_CREATED'"><strong>Stato:</strong> <br> Prenotazione creata</span>
+                    <span *ngSwitchCase="'ORDER_COMPLETED'"><strong>Stato:</strong> <br> Prenotazione confermata</span>
+                    <span *ngSwitchCase="'ORDER_CANCELLED'"><strong>Stato:</strong> <br> Prenotazione cancellata</span>
+                  </div>
                 </div>
+              </article>
+              <div *ngIf="order.orderStatus == 'ORDER_COMPLETED'">
+                <article class="card col-lg-6 col-md-12 col-sm-12">
+                  <div class="card-body row no-gutters">
+<!--                    <button (click)="returnBook()" type="button" class="btn btn-success">Consegna libro</button>-->
+                    <button (click)="cancelOrder()" type="button" class="btn btn-danger">Cancella prenotazione</button>
+                  </div>
+                </article>
               </div>
-            </article>
+
+            </div>
 
             <hr>
             <ul class="row">
               <li class="col-md-4" *ngFor="let product of products; let indexOfelement=index;">
-                <figure class="itemside  mb-3">
-                  <div class="aside"><a href="/article/{{product.id}}"><img src="{{product.picture}}" class="img-sm border"></a></div>
+                <figure class="itemside mb-3">
+                  <div class="aside"><a href="/article/{{product.id}}"><img src="{{product.picture}}"
+                                                                            class="img-sm border"></a></div>
                   <figcaption class="info align-self-center">
                     <p><a href="/article/{{product.id}}" class="title">{{product.title}}</a></p>
                     <p><a href="/article/{{product.id}}" class="title">{{product.author}}</a></p>

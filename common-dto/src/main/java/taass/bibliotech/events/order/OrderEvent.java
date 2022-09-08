@@ -1,10 +1,9 @@
 package taass.bibliotech.events.order;
 
 import lombok.Data;
-import taass.bibliotech.dto.PurchaseOrderDto;
+import taass.bibliotech.dto.BookOrderDto;
 import taass.bibliotech.events.Event;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
@@ -13,14 +12,14 @@ public class OrderEvent implements Event {
 
     private final UUID eventId = UUID.randomUUID();
     private final Date date = new Date();
-    private PurchaseOrderDto purchaseOrder;
+    private BookOrderDto bookOrder;
     private OrderStatus orderStatus;
 
     public OrderEvent() {
     }
 
-    public OrderEvent(PurchaseOrderDto purchaseOrder, OrderStatus orderStatus) {
-        this.purchaseOrder = purchaseOrder;
+    public OrderEvent(BookOrderDto bookOrder, OrderStatus orderStatus) {
+        this.bookOrder = bookOrder;
         this.orderStatus = orderStatus;
     }
 
@@ -34,12 +33,12 @@ public class OrderEvent implements Event {
         return this.date;
     }
 
-    public PurchaseOrderDto getPurchaseOrder() {
-        return purchaseOrder;
+    public BookOrderDto getBookOrder() {
+        return this.bookOrder;
     }
 
     public OrderStatus getOrderStatus() {
-        return orderStatus;
+        return this.orderStatus;
     }
 
     @Override
@@ -47,7 +46,7 @@ public class OrderEvent implements Event {
         return "OrderEvent{" +
                 "eventId=" + eventId +
                 ", date=" + date +
-                ", purchaseOrder=" + purchaseOrder +
+                ", bookOrder=" + bookOrder +
                 ", orderStatus=" + orderStatus +
                 '}';
     }

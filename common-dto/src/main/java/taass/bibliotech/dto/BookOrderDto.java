@@ -4,22 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor(staticName = "of")
-public class InventoryDto {
-
+public class BookOrderDto {
     private UUID orderId;
-    private Set<Triple> products;
+    private Long productId;
+    private Long userId;
 
     @Override
     public String toString() {
-        return "InventoryDto{" +
+        return "BookOrderDto{" +
                 "orderId=" + orderId +
-                ", products=" + products +
+                ", productId=" + productId +
+                ", userId=" + userId +
                 '}';
     }
 }
