@@ -11,7 +11,7 @@
   </div>
   <div *ngIf="errMsg" class="alert alert-danger alert-dismissible fade show" role="alert">
     <ng-template [ngIf]="product.stock == 0"><strong>Il libro non è più disponibile. Ti avviseremo quando lo sarà di nuovo.</strong></ng-template>
-    <ng-template [ngIf]="errMsgDisplay == 'already_booked'"><strong>Hai già prenotato questo libro!</strong></ng-template>
+    <ng-template [ngIf]="user_unable"><strong>Hai già prenotato un libro al momento. Riconsegnalo e riprova.</strong></ng-template>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -28,8 +28,8 @@
           <p class="d-none d-lg-block">{{product?.description}}</p>
             <div class="form-row">
               <div class="form-group col-sm-6 d-flex align-items-end">
-                <button (click)="bookingBook()" class="btn  btn-primary w-100">Prenota libro <i data-feather="shopping-cart" width="20" height="20" class="filled"></i>
-                </button>
+                <ng-template [ngIf]="already_ordered"><button class="btn btn-danger w-100" disabled>Libro prenotato <i data-feather="shopping-cart" width="20" height="20" class="filled"></i></button></ng-template>
+                <ng-template [ngIf]="!already_ordered"><button (click)="orderBook()" class="btn btn-primary w-100">Prenota libro <i data-feather="shopping-cart" width="20" height="20" class="filled"></i></button></ng-template>
               </div>
             </div>
           <hr>

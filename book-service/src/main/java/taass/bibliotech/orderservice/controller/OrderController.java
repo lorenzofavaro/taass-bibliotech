@@ -41,4 +41,11 @@ public class OrderController {
         Order order = orderService.getOrder(userId, orderId);
         return ResponseEntity.ok(order);
     }
+
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<Order> getOrderFromProductId(@RequestHeader(HEADER_AUTH) String tokenHeader, @PathVariable String productId) {
+        Long userId = RestUtility.getUserId(tokenHeader);
+        Order order = orderService.getOrderFromProductId(userId, Long.valueOf(productId));
+        return ResponseEntity.ok(order);
+    }
 }

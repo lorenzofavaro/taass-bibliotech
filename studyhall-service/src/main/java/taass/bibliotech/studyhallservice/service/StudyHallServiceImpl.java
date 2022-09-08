@@ -12,6 +12,8 @@ import taass.bibliotech.studyhallservice.repository.StudyHallRepository;
 
 import java.util.*;
 
+import static java.lang.Integer.min;
+
 @Service
 public class StudyHallServiceImpl implements StudyHallService {
 
@@ -21,17 +23,29 @@ public class StudyHallServiceImpl implements StudyHallService {
     @Autowired
     private BookStudyHallRepository bookStudyHallRepository;
 
-
-    @Override
-    public List<StudyHall> getAllStudyHalls() {
-        List<StudyHall> studyHalls = studyHallRepository.findAllEagerBy();
+    private void computeRealAvailability(List<StudyHall> studyHalls) {
         for (StudyHall studyHall : studyHalls) {
             int totalAvailability = studyHall.getAvailability();
             List<BookStudyHall> bookStudyHalls = bookStudyHallRepository.findAllByStudyHallId(studyHall.getId());
             int studyHallsBookedToday = (int) bookStudyHalls.stream().filter(x -> Objects.equals(x.getDate().getDay(), new Date().getDay())).count();
             studyHall.setAvailability(Integer.max(0, totalAvailability - studyHallsBookedToday));
         }
+    }
+
+    @Override
+    public List<StudyHall> getAllStudyHalls() {
+        List<StudyHall> studyHalls = studyHallRepository.findAllEagerBy();
+        computeRealAvailability(studyHalls);
         return studyHalls;
+    }
+
+    @Override
+    public List<StudyHall> getMostAvailableStudyHalls(Integer count) {
+        List<StudyHall> studyHalls = studyHallRepository.findAllEagerBy();
+        computeRealAvailability(studyHalls);
+        studyHalls.sort(Comparator.comparingInt(StudyHall::getAvailability).reversed());
+
+        return studyHalls.subList(0, min(studyHalls.size(), count));
     }
 
     @Override

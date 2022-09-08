@@ -10,6 +10,8 @@ public interface StudyHallService {
 
     List<StudyHall> getAllStudyHalls();
 
+    List<StudyHall> getMostAvailableStudyHalls(Integer count);
+
     StudyHall getStudyHall(Long id);
 
     void deleteStudyHall(Long id);

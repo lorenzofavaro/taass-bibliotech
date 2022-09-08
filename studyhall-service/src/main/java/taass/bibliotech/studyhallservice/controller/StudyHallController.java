@@ -28,6 +28,12 @@ public class StudyHallController {
         return ResponseEntity.ok(studyHalls);
     }
 
+    @GetMapping("/studyhalls/most_available/{count}")
+    public ResponseEntity<List<StudyHall>> getMostAvailableStudyHalls(@PathVariable Integer count) {
+        List<StudyHall> studyHalls = studyHallService.getMostAvailableStudyHalls(count);
+        return ResponseEntity.ok(studyHalls);
+    }
+
     @GetMapping("/studyhalls/{id}")
     public ResponseEntity<StudyHall> getStudyHall(@PathVariable Long id) throws Exception {
         StudyHall studyHall = studyHallService.getStudyHall(id);

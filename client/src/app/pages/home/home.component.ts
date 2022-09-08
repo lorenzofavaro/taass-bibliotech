@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private studyhallsService: StudyhallsService) {}
 
   ngOnInit(): void {
-    this.getStudyHalls();
+    this.getMostAvailableStudyHalls();
     this.getFeaturedProducts();
   }
 
@@ -46,8 +46,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     );
   }
 
-  public getStudyHalls(): void {
-      this.studyhallsService.getStudyhalls().subscribe(
+  public getMostAvailableStudyHalls(): void {
+      let max_count = 5
+      this.studyhallsService.getMostAvailableStudyHalls(max_count).subscribe(
         (response: Studyhalls[]) => {
           this.studyhalls = response;
         },

@@ -49,17 +49,8 @@ public class OrderServiceImpl implements OrderService {
         order.setDate(new Date());
         order.setOrderStatus(OrderStatus.ORDER_CREATED);
 
-        List<Order> dbOrders = orderRepository.findAllByUserId(accountId);
-        if (dbOrders != null && dbOrders.size() > 0) {
-            for (Order dbOrder : dbOrders) {
-                Long productId = order.getProducts().iterator().next().getProductId();
-                LocalDate currentDateMinus30Days = LocalDate.now().minusDays(30);
-                boolean isOrderRecent = dbOrder.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(currentDateMinus30Days);
-                boolean bookOrderExists = dbOrder.getProducts().stream().anyMatch(x -> Objects.equals(x.getProductId(), productId));
-                if (isOrderRecent && bookOrderExists) {
-                    return null;
-                }
-            }
+        if (getCurrentOrder(accountId) != null) {
+            return null;
         }
         orderRepository.save(order);
         Set<Triple> products = new HashSet<>();
@@ -105,4 +96,36 @@ public class OrderServiceImpl implements OrderService {
                 -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order doesn't exist"));
     }
 
+    @Override
+    public Order getOrderFromProductId(Long userId, Long productId) {
+        List<Order> dbOrders = orderRepository.findAllByUserId(userId);
+        if (dbOrders != null && dbOrders.size() > 0) {
+            for (Order dbOrder : dbOrders) {
+                LocalDate currentDateMinus30Days = LocalDate.now().minusDays(30);
+                boolean isOrderRecent = dbOrder.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(currentDateMinus30Days);
+                boolean isOrderCompleted = dbOrder.getOrderStatus() == OrderStatus.ORDER_COMPLETED;
+                boolean bookOrderExists = dbOrder.getProducts().stream().anyMatch(x -> Objects.equals(x.getProductId(), productId));
+                if (isOrderRecent && bookOrderExists && isOrderCompleted) {
+                    return dbOrder;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Order getCurrentOrder(Long userId) {
+        List<Order> dbOrders = orderRepository.findAllByUserId(userId);
+        if (dbOrders != null && dbOrders.size() > 0) {
+            for (Order dbOrder : dbOrders) {
+                LocalDate currentDateMinus30Days = LocalDate.now().minusDays(30);
+                boolean isOrderRecent = dbOrder.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(currentDateMinus30Days);
+                boolean isOrderCompleted = dbOrder.getOrderStatus() == OrderStatus.ORDER_COMPLETED;
+                if (isOrderRecent && isOrderCompleted) {
+                    return dbOrder;
+                }
+            }
+        }
+        return null;
+    }
 }

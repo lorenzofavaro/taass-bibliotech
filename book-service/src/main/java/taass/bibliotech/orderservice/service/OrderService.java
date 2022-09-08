@@ -13,4 +13,8 @@ public interface OrderService {
     List<Order> getAllOrders(Long userId);
 
     Order getOrder(Long userId, UUID orderId);
+
+    Order getCurrentOrder(Long userId);
+
+    Order getOrderFromProductId(Long userId, Long productId);
 }

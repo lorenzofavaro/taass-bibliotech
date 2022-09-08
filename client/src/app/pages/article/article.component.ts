@@ -18,7 +18,8 @@ export class ArticleComponent implements OnInit, AfterViewInit {
 
   errMsg = false;
   succMsg = false;
-  errMsgDisplay = "";
+  already_ordered = false;
+  user_unable = false;
   urlRedirect = "";
 
   constructor(
@@ -31,6 +32,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.productId = Number(this.route.snapshot.paramMap.get("id"));
     this.getArticle();
+    this.checkIfAlreadyOrdered();
   }
 
   private getArticle(): void {
@@ -44,7 +46,20 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     );
   }
 
-  public bookingBook(): void {
+  private checkIfAlreadyOrdered(): void {
+    this.orderService.getOrderFromProductId(this.productId).subscribe(
+      (response) => {
+        if (response != null){
+          this.already_ordered = true;
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.message);
+      }
+    );
+  }
+
+  public orderBook(): void {
     if (this.product.stock < 1) {
       this.succMsg = false;
       this.errMsg = true;
@@ -65,7 +80,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
           if (result == null) {
             this.succMsg = false;
             this.errMsg = true;
-            this.errMsgDisplay = 'already_booked';
+            this.user_unable = true;
           } else {
             this.errMsg = false;
             this.succMsg = true;

@@ -20,6 +20,10 @@ export class StudyhallsService {
     return this.http.get<Studyhalls[]>(`${this.apiServerUrl}/studyhalls-service/studyhalls/all`);
   }
 
+  public getMostAvailableStudyHalls(count: number): Observable<Studyhalls[]> {
+    return this.http.get<Studyhalls[]>(`${this.apiServerUrl}/studyhalls-service/studyhalls/most_available/${count}`);
+  }
+
   public addStudyHall(data): Observable<string> {
     return this.http.post(`${this.apiServerUrl}/studyhalls-service/studyhalls/add`, data, {responseType: 'text'});
   }
