@@ -12,6 +12,8 @@ public interface OrderService {
 
     Boolean cancelOrder(UUID orderId);
 
+    Boolean returnOrder(UUID orderId);
+
     List<Order> getAllOrders(Long userId);
 
     Order getOrder(Long userId, UUID orderId);

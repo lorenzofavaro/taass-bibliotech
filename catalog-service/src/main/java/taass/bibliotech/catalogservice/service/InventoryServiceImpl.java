@@ -33,22 +33,30 @@ public class InventoryServiceImpl implements InventoryService {
     public void receiveOrderMessage(OrderEvent orderEvent) {
         InventoryEvent inventoryEvent = new InventoryEvent(orderEvent.getBookOrder().getOrderId(), InventoryStatus.REJECTED);
         Long productId = orderEvent.getBookOrder().getProductId();
-        Optional<Product> optProduct = productRepository.findById(productId);
+        Product product = productRepository.findById(productId).get();
 
-        if (orderEvent.getOrderStatus() == OrderStatus.ORDER_CREATED) { // Richiesta di ordine libro
-            if (optProduct.isEmpty() || optProduct.get().getStock() < 1) {
-                inventoryEvent = new InventoryEvent(orderEvent.getBookOrder().getOrderId(), InventoryStatus.REJECTED); // Il libro che si voleva prenotare non è più disponibile.
-            } else {
-                Product product = optProduct.get();
-                product.setStock(product.getStock() - 1); // Aggiorno la disponibilità del libro
+        switch (orderEvent.getOrderStatus()) {
+            case ORDER_CREATED:
+                if (product.getStock() < 1) {
+                    inventoryEvent = new InventoryEvent(orderEvent.getBookOrder().getOrderId(), InventoryStatus.REJECTED); // Il libro che si voleva prenotare non è più disponibile.
+                } else {
+                    product.setStock(product.getStock() - 1); // Aggiorno la disponibilità del libro
+                    productRepository.save(product);
+                    inventoryEvent = new InventoryEvent(orderEvent.getBookOrder().getOrderId(), InventoryStatus.RESERVED);
+                }
+                break;
+
+            case ORDER_CANCELLED:
+                product.setStock(product.getStock() + 1); // Aggiorno la disponibilità del libro
                 productRepository.save(product);
-                inventoryEvent = new InventoryEvent(orderEvent.getBookOrder().getOrderId(), InventoryStatus.RESERVED);
-            }
-        } else if (orderEvent.getOrderStatus() == OrderStatus.ORDER_CANCELLED) { // Richiesta di cancellazione di un ordine
-            Product product = optProduct.get();
-            product.setStock(product.getStock() + 1); // Aggiorno la disponibilità del libro
-            productRepository.save(product);
-            inventoryEvent = new InventoryEvent(orderEvent.getBookOrder().getOrderId(), InventoryStatus.REJECTED);
+                inventoryEvent = new InventoryEvent(orderEvent.getBookOrder().getOrderId(), InventoryStatus.REJECTED);
+                break;
+
+            case ORDER_RETURNED:
+                product.setStock(product.getStock() + 1); // Aggiorno la disponibilità del libro
+                productRepository.save(product);
+                inventoryEvent = new InventoryEvent(orderEvent.getBookOrder().getOrderId(), InventoryStatus.RETURNED);
+                break;
         }
         rabbitTemplate.convertAndSend(exchange, routingkey, inventoryEvent);
     }

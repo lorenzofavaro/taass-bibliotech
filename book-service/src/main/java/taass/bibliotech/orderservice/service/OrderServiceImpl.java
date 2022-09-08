@@ -82,17 +82,41 @@ public class OrderServiceImpl implements OrderService {
         return true;
     }
 
+    @Override
+    @Transactional
+    public Boolean returnOrder(UUID orderId) {
+        Order order = orderRepository.findById(orderId).get();
+        Long productId = order.getProducts().iterator().next().getProductId();
+
+        BookOrderDto bookOrderDto = BookOrderDto.of(
+                order.getId(),
+                productId,
+                order.getUserId()
+        );
+        var orderEvent = new OrderEvent(bookOrderDto, OrderStatus.ORDER_RETURNED);
+
+        rabbitTemplate.convertAndSend(exchange, routingkey, orderEvent);
+        return true;
+    }
+
     @RabbitListener(queues = "${spring.rabbitmq.template.default-receive-queue}")
     public void receiveOrderMessage(InventoryEvent inventoryEvent) {
         System.out.println("RECEIVED INVENTORY EVENT: " + inventoryEvent.toString());
 
         Order order = orderRepository.findById(inventoryEvent.getOrderId()).get();
+        switch (inventoryEvent.getStatus()) {
+            case RESERVED:
+                order.setOrderStatus(OrderStatus.ORDER_COMPLETED);
+                break;
 
-        if (inventoryEvent.getStatus() == InventoryStatus.RESERVED)
-            order.setOrderStatus(OrderStatus.ORDER_COMPLETED);
-        else if (inventoryEvent.getStatus() == InventoryStatus.REJECTED)
-            order.setOrderStatus(OrderStatus.ORDER_CANCELLED);
+            case REJECTED:
+                order.setOrderStatus(OrderStatus.ORDER_CANCELLED);
+                break;
 
+            case RETURNED:
+                order.setOrderStatus(OrderStatus.ORDER_RETURNED);
+                break;
+        }
         orderRepository.save(order);
     }
 
@@ -127,7 +151,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order getCurrentOrder(Long userId) {
         List<Order> dbOrders = orderRepository.findAllByUserId(userId);
-        if (dbOrders != null && dbOrders.size() > 0) {
+        if (dbOrders != null) {
             for (Order dbOrder : dbOrders) {
                 LocalDate currentDateMinus30Days = LocalDate.now().minusDays(30);
                 boolean isOrderRecent = dbOrder.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(currentDateMinus30Days);

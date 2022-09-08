@@ -48,13 +48,18 @@
                     <span *ngSwitchCase="'ORDER_CREATED'"><strong>Stato:</strong> <br> Prenotazione creata</span>
                     <span *ngSwitchCase="'ORDER_COMPLETED'"><strong>Stato:</strong> <br> Prenotazione confermata</span>
                     <span *ngSwitchCase="'ORDER_CANCELLED'"><strong>Stato:</strong> <br> Prenotazione cancellata</span>
+                    <span *ngSwitchCase="'ORDER_RETURNED'"><strong>Stato:</strong> <br> Prenotazione terminata</span>
                   </div>
                 </div>
               </article>
-              <div *ngIf="order.orderStatus == 'ORDER_COMPLETED'">
-                <article class="card col-lg-6 col-md-12 col-sm-12">
-                  <div class="card-body row no-gutters">
-<!--                    <button (click)="returnBook()" type="button" class="btn btn-success">Consegna libro</button>-->
+              <div *ngIf="order.orderStatus == 'ORDER_COMPLETED'" class="m-auto">
+                <article class="card">
+                  <div class="card-body row no-gutters m-auto">
+                    <button (click)="returnOrder()" type="button" class="btn btn-success">Ho consegnato questo libro</button>
+                  </div>
+                </article>
+                <article class="card">
+                  <div class="card-body row no-gutters m-auto">
                     <button (click)="cancelOrder()" type="button" class="btn btn-danger">Cancella prenotazione</button>
                   </div>
                 </article>
