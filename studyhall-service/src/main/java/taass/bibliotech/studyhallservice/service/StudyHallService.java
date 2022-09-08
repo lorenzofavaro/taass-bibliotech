@@ -24,4 +24,6 @@ public interface StudyHallService {
 
     List<BookStudyHall> getAllBookings(Long id);
 
+    List<BookStudyHall> getTodayBookings(Long id);
+
 }

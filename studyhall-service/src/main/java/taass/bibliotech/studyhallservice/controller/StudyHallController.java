@@ -72,4 +72,11 @@ public class StudyHallController {
         return ResponseEntity.ok(bookings);
     }
 
+    @GetMapping("/studyhalls/today_bookings")
+    public ResponseEntity<List<BookStudyHall>> getTodayBookings(@RequestHeader(HEADER_AUTH) String tokenHeader) {
+        Long userId = RestUtility.getUserId(tokenHeader);
+        List<BookStudyHall> bookings = studyHallService.getTodayBookings(userId);
+        return ResponseEntity.ok(bookings);
+    }
+
 }

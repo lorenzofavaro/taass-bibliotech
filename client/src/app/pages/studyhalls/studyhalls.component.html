@@ -31,7 +31,13 @@
                 <strong>{{studyhall.address}}</strong><br><br>
               </small>
               Posti disponibili: {{studyhall.availability}} <br><br>
-              <button (click)="bookStudyHall(i)" type="button" class="btn btn-primary">Prenota per oggi</button>
+              <ng-container *ngIf="bookings == null || bookings.length == 0; else somebooked">
+                <button (click)="bookStudyHall(i)" type="button" class="btn btn-primary">Prenota per oggi</button>
+              </ng-container>
+              <ng-template #somebooked>
+                <ng-template [ngIf]="studyhall.booked"><button type="button" class="btn btn-success" disabled>Prenotazione effettuata</button></ng-template>
+                <ng-template [ngIf]="!studyhall.booked"><button (click)="bookStudyHall(i)" type="button" class="btn btn-primary" disabled>Prenota per oggi</button></ng-template>
+              </ng-template>
             </figcaption>
           </figure>
         </div>

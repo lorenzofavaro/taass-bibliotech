@@ -102,4 +102,18 @@ public class StudyHallServiceImpl implements StudyHallService {
     public List<BookStudyHall> getAllBookings(Long userId) {
         return bookStudyHallRepository.findAllByUserId(userId);
     }
+
+    @Override
+    public List<BookStudyHall> getTodayBookings(Long userId) {
+        List<BookStudyHall> todayBookings = new ArrayList<>();
+        List<BookStudyHall> bookings = bookStudyHallRepository.findAllByUserId(userId);
+        for (BookStudyHall bookStudyHall : bookings) {
+            if (bookStudyHall.getDate().getDay() == new Date().getDay()) {
+                todayBookings.add(bookStudyHall);
+            }
+        }
+        System.out.println("bookings: " + Arrays.toString(bookings.toArray()));
+        System.out.println("todayBookings: " + Arrays.toString(todayBookings.toArray()));
+        return todayBookings;
+    }
 }

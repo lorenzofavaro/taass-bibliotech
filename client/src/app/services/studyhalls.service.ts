@@ -44,6 +44,10 @@ export class StudyhallsService {
     return this.http.get<BookingStudyHalls[]>(`${this.apiServerUrl}/studyhalls-service/studyhalls/bookings`);
   }
 
+  public getTodayBookings(): Observable<BookingStudyHalls[]> {
+    return this.http.get<BookingStudyHalls[]>(`${this.apiServerUrl}/studyhalls-service/studyhalls/today_bookings`);
+  }
+
   public bookStudyHall(id: number): Observable<BookingStudyHalls> {
     return this.http.get<BookingStudyHalls>(`${this.apiServerUrl}/studyhalls-service/studyhalls/create/${id}`);
   }
