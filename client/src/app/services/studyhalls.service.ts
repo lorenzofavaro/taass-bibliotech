@@ -20,6 +20,10 @@ export class StudyhallsService {
     return this.http.get<Studyhalls[]>(`${this.apiServerUrl}/studyhalls-service/studyhalls/all`);
   }
 
+  public getStudyhallsAdmin(): Observable<Studyhalls[]> {
+    return this.http.get<Studyhalls[]>(`${this.apiServerUrl}/studyhalls-service/studyhalls/admin_all`);
+  }
+
   public getMostAvailableStudyHalls(count: number): Observable<Studyhalls[]> {
     return this.http.get<Studyhalls[]>(`${this.apiServerUrl}/studyhalls-service/studyhalls/most_available/${count}`);
   }
@@ -50,5 +54,9 @@ export class StudyhallsService {
 
   public bookStudyHall(id: number): Observable<BookingStudyHalls> {
     return this.http.get<BookingStudyHalls>(`${this.apiServerUrl}/studyhalls-service/studyhalls/create/${id}`);
+  }
+
+  public cancelBooking(id: number): Observable<Boolean> {
+    return this.http.delete<Boolean>(`${this.apiServerUrl}/studyhalls-service/studyhalls/cancel_booking/${id}`);
   }
 }

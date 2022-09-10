@@ -36,10 +36,15 @@
                 <div class="people-nearby">
                   <div class="nearby-user">
                     <div class="row">
-                      <div class="col-md-7 col-sm-7">
+                      <div class="col-lg-6 col-md-12 col-sm-12">
                         <h5><a href="#" class="profile-link">{{this.getStudyHallName(book.studyHallId)}}</a></h5>
                         <p>{{this.getStudyHallAddress(book.studyHallId)}}</p>
                         <p class="text-muted">{{book?.date | date: 'dd MMM yyyy'}}</p>
+                      </div>
+                      <div *ngIf="bookIsToday(book)">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                          <button (click)="cancelBooking(book)" type="button" class="btn btn-danger">Cancella prenotazione</button>
+                        </div>
                       </div>
                     </div>
                   </div>

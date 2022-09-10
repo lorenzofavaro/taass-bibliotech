@@ -42,10 +42,10 @@ export class AdminStudyHallsComponent implements OnInit, OnDestroy {
         }
       }
     };
-    this.getProducts();
+    this.getStudyHalls();
   }
 
-  public getProducts(): void {
+  public getStudyHalls(): void {
     this.studyhallsService.getStudyhalls().subscribe(
       (response: Studyhalls[]) => {
         this.studyhalls = response;

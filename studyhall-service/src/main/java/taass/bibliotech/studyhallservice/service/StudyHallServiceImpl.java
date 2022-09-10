@@ -10,6 +10,7 @@ import taass.bibliotech.studyhallservice.models.StudyHallForm;
 import taass.bibliotech.studyhallservice.repository.BookStudyHallRepository;
 import taass.bibliotech.studyhallservice.repository.StudyHallRepository;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 import static java.lang.Integer.min;
@@ -33,9 +34,11 @@ public class StudyHallServiceImpl implements StudyHallService {
     }
 
     @Override
-    public List<StudyHall> getAllStudyHalls() {
+    public List<StudyHall> getAllStudyHalls(Boolean isAdmin) {
         List<StudyHall> studyHalls = studyHallRepository.findAllEagerBy();
-        computeRealAvailability(studyHalls);
+        if (!isAdmin) {
+            computeRealAvailability(studyHalls);
+        }
         return studyHalls;
     }
 
@@ -107,11 +110,21 @@ public class StudyHallServiceImpl implements StudyHallService {
     public List<BookStudyHall> getTodayBookings(Long userId) {
         List<BookStudyHall> todayBookings = new ArrayList<>();
         List<BookStudyHall> bookings = bookStudyHallRepository.findAllByUserId(userId);
+        Date currentDate = new Date();
         for (BookStudyHall bookStudyHall : bookings) {
-            if (bookStudyHall.getDate().getDay() == new Date().getDay()) {
+            Date bookingDate = bookStudyHall.getDate();
+            if (currentDate.getYear() == bookingDate.getYear() && currentDate.getMonth() == bookingDate.getMonth() && currentDate.getDay() == bookingDate.getDay()) {
                 todayBookings.add(bookStudyHall);
             }
         }
         return todayBookings;
     }
+
+    @Override
+    @Transactional
+    public Boolean cancelBooking(Long bookingId) {
+        bookStudyHallRepository.deleteById(bookingId);
+        return true;
+    }
+
 }

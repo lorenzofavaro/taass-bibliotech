@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface StudyHallService {
 
-    List<StudyHall> getAllStudyHalls();
+    List<StudyHall> getAllStudyHalls(Boolean isAdmin);
 
     List<StudyHall> getMostAvailableStudyHalls(Integer count);
 
@@ -26,4 +26,5 @@ public interface StudyHallService {
 
     List<BookStudyHall> getTodayBookings(Long id);
 
+    Boolean cancelBooking(Long bookingId);
 }

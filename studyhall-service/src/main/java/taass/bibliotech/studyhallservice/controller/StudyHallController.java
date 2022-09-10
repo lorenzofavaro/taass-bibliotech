@@ -24,7 +24,13 @@ public class StudyHallController {
 
     @GetMapping("/studyhalls/all")
     public ResponseEntity<List<StudyHall>> getAllStudyHalls() {
-        List<StudyHall> studyHalls = studyHallService.getAllStudyHalls();
+        List<StudyHall> studyHalls = studyHallService.getAllStudyHalls(false);
+        return ResponseEntity.ok(studyHalls);
+    }
+
+    @GetMapping("/studyhalls/admin_all")
+    public ResponseEntity<List<StudyHall>> getAllStudyHallsAdmin() {
+        List<StudyHall> studyHalls = studyHallService.getAllStudyHalls(true);
         return ResponseEntity.ok(studyHalls);
     }
 
@@ -77,6 +83,12 @@ public class StudyHallController {
         Long userId = RestUtility.getUserId(tokenHeader);
         List<BookStudyHall> bookings = studyHallService.getTodayBookings(userId);
         return ResponseEntity.ok(bookings);
+    }
+
+    @DeleteMapping("/studyhalls/cancel_booking/{id}")
+    public ResponseEntity<Boolean> cancelBooking(@RequestHeader(HEADER_AUTH) String tokenHeader, @PathVariable Long id) {
+        studyHallService.cancelBooking(id);
+        return ResponseEntity.ok(true);
     }
 
 }

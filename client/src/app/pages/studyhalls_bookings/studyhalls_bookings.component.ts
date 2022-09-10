@@ -3,6 +3,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {User} from '../../models/User';
 import {UserService} from '../../services/user.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {formatDate} from '@angular/common';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import * as Feather from 'feather-icons';
@@ -98,6 +99,29 @@ export class StudyHallsBookingsComponent implements OnInit, AfterViewInit {
         return obj.address
       }
     }
+  }
+
+  private reloadCurrentRoute() {
+      let currentUrl = this.router.url;
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([currentUrl]);
+      });
+  }
+
+  public cancelBooking(booking: BookingStudyHalls): void {
+    this.studyhallsService.cancelBooking(booking.id).subscribe(
+      (response: Boolean) => {
+        console.log(response);
+        this.reloadCurrentRoute();
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.message);
+      });
+  }
+
+  public bookIsToday(booking: BookingStudyHalls): Boolean {
+    const nowDate = new Date().toISOString();
+    return booking.date.substring(0, 11) == nowDate.substring(0, 11);
   }
 
 }
