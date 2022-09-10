@@ -45,18 +45,18 @@ export class StudyhallsService {
   }
 
   public getBookings(): Observable<BookingStudyHalls[]> {
-    return this.http.get<BookingStudyHalls[]>(`${this.apiServerUrl}/studyhalls-service/studyhalls/bookings`);
+    return this.http.get<BookingStudyHalls[]>(`${this.apiServerUrl}/studyhalls-service/bookings/all`);
   }
 
   public getTodayBookings(): Observable<BookingStudyHalls[]> {
-    return this.http.get<BookingStudyHalls[]>(`${this.apiServerUrl}/studyhalls-service/studyhalls/today_bookings`);
+    return this.http.get<BookingStudyHalls[]>(`${this.apiServerUrl}/studyhalls-service/bookings/today`);
   }
 
   public bookStudyHall(id: number): Observable<BookingStudyHalls> {
-    return this.http.get<BookingStudyHalls>(`${this.apiServerUrl}/studyhalls-service/studyhalls/create/${id}`);
+    return this.http.get<BookingStudyHalls>(`${this.apiServerUrl}/studyhalls-service/bookings/create/${id}`);
   }
 
   public cancelBooking(id: number): Observable<Boolean> {
-    return this.http.delete<Boolean>(`${this.apiServerUrl}/studyhalls-service/studyhalls/cancel_booking/${id}`);
+    return this.http.delete<Boolean>(`${this.apiServerUrl}/studyhalls-service/bookings/cancel/${id}`);
   }
 }

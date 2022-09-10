@@ -46,7 +46,7 @@ export class AdminStudyHallsComponent implements OnInit, OnDestroy {
   }
 
   public getStudyHalls(): void {
-    this.studyhallsService.getStudyhalls().subscribe(
+    this.studyhallsService.getStudyhallsAdmin().subscribe(
       (response: Studyhalls[]) => {
         this.studyhalls = response;
         this.dtTrigger.next();

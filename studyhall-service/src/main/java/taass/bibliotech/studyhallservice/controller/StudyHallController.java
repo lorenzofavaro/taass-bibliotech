@@ -52,13 +52,6 @@ public class StudyHallController {
         return ResponseEntity.ok("Study hall deleted");
     }
 
-    @GetMapping("/studyhalls/create/{id}")
-    public ResponseEntity<BookStudyHall> createBook(@RequestHeader(HEADER_AUTH) String tokenHeader, @PathVariable Long id) {
-        Long accountId = RestUtility.getUserId(tokenHeader);
-        BookStudyHall bookStudyHall = studyHallService.createBook(id, accountId);
-        return ResponseEntity.ok(bookStudyHall);
-    }
-
     @PostMapping("/studyhalls/add")
     public HttpEntity<String> addStudyHall(@Valid @RequestBody StudyHallForm studyHallForm) {
         studyHallService.addStudyHall(studyHallForm);
@@ -71,21 +64,28 @@ public class StudyHallController {
         return ResponseEntity.ok("Study hall edited");
     }
 
-    @GetMapping("/studyhalls/bookings")
+    @GetMapping("/bookings/all")
     public ResponseEntity<List<BookStudyHall>> getBookings(@RequestHeader(HEADER_AUTH) String tokenHeader) {
         Long userId = RestUtility.getUserId(tokenHeader);
         List<BookStudyHall> bookings = studyHallService.getAllBookings(userId);
         return ResponseEntity.ok(bookings);
     }
 
-    @GetMapping("/studyhalls/today_bookings")
+    @GetMapping("/bookings/today")
     public ResponseEntity<List<BookStudyHall>> getTodayBookings(@RequestHeader(HEADER_AUTH) String tokenHeader) {
         Long userId = RestUtility.getUserId(tokenHeader);
         List<BookStudyHall> bookings = studyHallService.getTodayBookings(userId);
         return ResponseEntity.ok(bookings);
     }
 
-    @DeleteMapping("/studyhalls/cancel_booking/{id}")
+    @GetMapping("/bookings/create/{id}")
+    public ResponseEntity<BookStudyHall> createBook(@RequestHeader(HEADER_AUTH) String tokenHeader, @PathVariable Long id) {
+        Long accountId = RestUtility.getUserId(tokenHeader);
+        BookStudyHall bookStudyHall = studyHallService.createBook(id, accountId);
+        return ResponseEntity.ok(bookStudyHall);
+    }
+
+    @DeleteMapping("/bookings/cancel/{id}")
     public ResponseEntity<Boolean> cancelBooking(@RequestHeader(HEADER_AUTH) String tokenHeader, @PathVariable Long id) {
         studyHallService.cancelBooking(id);
         return ResponseEntity.ok(true);

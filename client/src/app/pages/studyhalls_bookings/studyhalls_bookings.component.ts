@@ -121,7 +121,9 @@ export class StudyHallsBookingsComponent implements OnInit, AfterViewInit {
 
   public bookIsToday(booking: BookingStudyHalls): Boolean {
     const nowDate = new Date().toISOString();
-    return booking.date.substring(0, 11) == nowDate.substring(0, 11);
+    console.log(booking.date.toLocaleString())
+
+    return booking.date.toLocaleString().substring(0, 11) == nowDate.substring(0, 11);
   }
 
 }
