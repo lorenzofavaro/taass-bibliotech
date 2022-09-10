@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
         order.setDate(new Date());
         order.setOrderStatus(OrderStatus.ORDER_CREATED);
 
-        if (getCurrentOrder(accountId) != null) {
+        if (getCompletedOrdersCount(accountId) >= 3) {
             return null;
         }
         orderRepository.save(order);
@@ -149,18 +149,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getCurrentOrder(Long userId) {
+    public int getCompletedOrdersCount(Long userId) {
         List<Order> dbOrders = orderRepository.findAllByUserId(userId);
+        int count = 0;
         if (dbOrders != null) {
             for (Order dbOrder : dbOrders) {
                 LocalDate currentDateMinus30Days = LocalDate.now().minusDays(30);
                 boolean isOrderRecent = dbOrder.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(currentDateMinus30Days);
                 boolean isOrderCompleted = dbOrder.getOrderStatus() == OrderStatus.ORDER_COMPLETED;
                 if (isOrderRecent && isOrderCompleted) {
-                    return dbOrder;
+                    count++;
                 }
             }
         }
-        return null;
+        return count;
     }
 }

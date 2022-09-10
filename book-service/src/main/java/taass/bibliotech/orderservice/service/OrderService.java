@@ -18,7 +18,7 @@ public interface OrderService {
 
     Order getOrder(Long userId, UUID orderId);
 
-    Order getCurrentOrder(Long userId);
+    int getCompletedOrdersCount(Long userId);
 
     Order getOrderFromProductId(Long userId, Long productId);
 }
