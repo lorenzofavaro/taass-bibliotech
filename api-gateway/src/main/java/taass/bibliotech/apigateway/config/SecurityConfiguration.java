@@ -35,7 +35,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/auth-service/login",
             "/auth-service/googlelogin",
             "/auth-service/signup",
-            "/studyhalls-service/studyhalls/all"
+            "/studyhalls-service/studyhalls/all",
+            "/studyhalls-service/studyhalls/most_available/**"
     };
 
 
